@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd">
+
+    <tlib-version>1.0</tlib-version>
+    <short-name>FoodDelivery</short-name>
+    <tag-file>
+        <name>restaurantsOrder</name>
+        <path>/WEB-INF/tags/restaurantOrders.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>orders</name>
+        <path>/WEB-INF/tags/orders.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>cart</name>
+        <path>/WEB-INF/tags/cart.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>restaurantMenu</name>
+        <path>/WEB-INF/tags/dish.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>restaurantInfo</name>
+        <path>/WEB-INF/tags/restaurantInfo.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>categories</name>
+        <path>/WEB-INF/tags/categories.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>restaurantProfile</name>
+        <path>/WEB-INF/tags/restaurantProfile.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>restaurantDishes</name>
+        <path>/WEB-INF/tags/restaurant_dishes.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>restaurants</name>
+        <path>/WEB-INF/tags/restaurants.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>user</name>
+        <path>/WEB-INF/tags/userProfile.tag</path>
+    </tag-file>
+</taglib>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="3683909547">
+    <data-source source="LOCAL" name="MySQL - fooddelivery@localhost" uuid="41684bc2-b791-48a1-bb66-35325759b9ab">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/fooddelivery</jdbc-url>
+      <user-name>root</user-name>
+      <user-password>dfeedfcbdfdfdfc1dfcbdf9bdf93df93df99</user-password>
+      <driver-properties>
+        <property name="zeroDateTimeBehavior" value="convertToNull" />
+        <property name="tinyInt1isBit" value="false" />
+      </driver-properties>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+
