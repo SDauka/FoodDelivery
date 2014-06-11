@@ -22,10 +22,12 @@ public class ActionFactory {
         actions.put("GET/profilePage", new ViewAction("userProfile.page"));
         actions.put("GET/restoratorPage", new ViewAction("restoratorPage.page"));
         actions.put("GET/editDishPage", new ViewAction("editDishPage.page"));
+        actions.put("GET/addDishPage", new ViewAction("addDish.page"));
         actions.put("GET/menuPage", new ViewAction("menuPage.page"));
         actions.put("GET/orderCheck", new ViewAction("orderCheck.page"));
         actions.put("GET/orderConfirm", new ViewAction("orderConfirm.page"));
         actions.put("GET/requestOrderDishes", new ViewAction("requestOrderDishes.page"));
+        actions.put("GET/addDishP", new AddDishPageAction());
         actions.put("GET/checkOrder", new CheckOrderPageAction());
         actions.put("GET/locale", new ChangeLanguageAction());
         actions.put("GET/restaurants", new ShowRestaurants());

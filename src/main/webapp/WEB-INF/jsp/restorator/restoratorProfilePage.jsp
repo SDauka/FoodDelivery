@@ -314,262 +314,178 @@
     </div>
 </div>
 <div class="tab-pane" id="tab2">
-<c:if test="${sessionScope.restaurant == null}">
-    <h3><fmt:message key="r.restaurant"/></h3>
-    <button id="addRest" class="btn btn-warning" data-toggle="collapse" data-target="#addR">
-        <fmt:message key="r.addRest"/></button>
-    <br><br>
+    <c:if test="${sessionScope.restaurant == null}">
+        <h3><fmt:message key="r.restaurant"/></h3>
+        <button id="addRest" class="btn btn-warning" data-toggle="collapse" data-target="#addR">
+            <fmt:message key="r.addRest"/></button>
+        <br><br>
 
-    <div id="addR" class="collapse">
-        <form novalidate id="addRestaurant" action="addRestaurant" method="post" enctype="multipart/form-data">
-            <div class="control-group">
-                <div class="controls">
-                    <input type="text" class="input-block-level" required
-                           data-validation-required-message="<fmt:message key="error.empty.fields"/>"
-                           placeholder="<fmt:message key="name.h"/>"
-                           name="nameRest"/>
+        <div id="addR" class="collapse">
+            <form novalidate id="addRestaurant" action="addRestaurant" method="post" enctype="multipart/form-data">
+                <div class="control-group">
+                    <div class="controls">
+                        <input type="text" class="input-block-level" required
+                               data-validation-required-message="<fmt:message key="error.empty.fields"/>"
+                               placeholder="<fmt:message key="name.h"/>"
+                               name="nameRest"/>
 
-                    <p class="help-block"></p>
-                </div>
-            </div>
-            <div class="control-group">
-                <div class="controls">
-                    <input type="number" class="input-block-level" required
-                           data-validation-required-message="<fmt:message key="error.empty.fields"/>"
-                           placeholder="<fmt:message key="r.delivery.time"/>"
-                           name="deliveryTimeRest"/>
-
-                    <p class="help-block"></p>
-                </div>
-            </div>
-            <div class="control-group">
-                <div class="controls">
-                    <input type="text" class="input-block-level" required
-                           data-validation-required-message="<fmt:message key="error.empty.fields"/>"
-                           placeholder="<fmt:message key="r.note"/>"
-                           name="noteRest"/>
-
-                    <p class="help-block"></p>
-                </div>
-            </div>
-            <div class="control-group">
-                <div class="controls">
-                    <strong><fmt:message key="r.addLogo"/></strong><br>
-                    <input required data-validation-required-message="<fmt:message key="error.empty.fields"/>"
-                           name="data" type="file" accept="image/jpeg,image/png"/>
-
-                    <p class="help-block"></p>
-                </div>
-            </div>
-            <c:if test="${requestScope.addRestErrorMessage ne null}">
-                <script type="text/javascript">
-                    document.getElementById('addRest').click();
-                </script>
-                <script>
-                    $('#myTab a[href="#tab2"]').tab('show');
-                </script>
-                <br>
-
-                <div class="alert alert-error">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <b><fmt:message key="error"/>&nbsp;</b><fmt:message
-                        key="${requestScope.addRestErrorMessage}"/>
-                </div>
-            </c:if>
-            <button class="btn btn-success" type="submit"><fmt:message key="u.save"/></button>
-        </form>
-    </div>
-</c:if>
-<c:if test="${sessionScope.restaurant ne null}">
-    <div class="tabbable">
-        <ul class="nav nav-tabs" id="myTab2">
-            <li class="active"><a href="#tab4" data-toggle="tab"><fmt:message key="r.info"/></a>
-            </li>
-            <li><a href="#tab5" data-toggle="tab"><fmt:message key="r.menu"/></a></li>
-            <li><a href="#tab6" data-toggle="tab"><fmt:message key="u.orders"/></a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="tab4">
-                <div class="row">
-                    <div class="span5">
-                        <h3><fmt:message key="r.info"/></h3>
-                        <t:restaurantProfile restaurant="${restaurant}"/>
+                        <p class="help-block"></p>
                     </div>
-                    <div class="span4">
-                        <br>
-                        <button id="edrest" class="btn btn-warning" data-toggle="collapse"
-                                data-target="#editR">
-                            <fmt:message key="u.edit"/></button>
-                        <br>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <input type="number" class="input-block-level" required
+                               data-validation-required-message="<fmt:message key="error.empty.fields"/>"
+                               placeholder="<fmt:message key="r.delivery.time"/>"
+                               name="deliveryTimeRest"/>
 
-                        <div id="editR" class="collapse">
-                            <form novalidate id="restaurantEdit" action="updateRestaurantProfile"
-                                  method="post" enctype="multipart/form-data">
-                                <div class="control-group">
-                                    <div class="controls">
-                                        <input type="text" class="input-block-level"
-                                               placeholder="<fmt:message key="name.h"/>"
-                                               name="nameRest"/>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <div class="controls">
-                                        <input type="number" class="input-block-level"
-                                               placeholder="<fmt:message key="r.delivery.time"/>"
-                                               name="deliveryTimeRest"/>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <div class="controls">
-                                        <input type="text" class="input-block-level"
-                                               placeholder="<fmt:message key="r.note"/>"
-                                               name="noteRest"/>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <div class="controls">
-                                        <strong><fmt:message key="r.addLogo"/></strong><br>
-                                        <input name="data" type="file"
-                                               accept="image/jpeg,image/png"/>
-                                    </div>
-                                </div>
-                                <c:if test="${requestScope.upRestErrorMessage ne null}">
-                                    <script type="text/javascript">
-                                        document.getElementById('edrest').click();
-                                    </script>
-                                    <script>
-                                        $('#myTab a[href="#tab2"]').tab('show');
-                                        $('#myTab2 a[href="#tab4"]').tab('show');
-                                    </script>
-                                    <br>
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <input type="text" class="input-block-level" required
+                               data-validation-required-message="<fmt:message key="error.empty.fields"/>"
+                               placeholder="<fmt:message key="r.note"/>"
+                               name="noteRest"/>
 
-                                    <div class="alert alert-error">
-                                        <button type="button" class="close"
-                                                data-dismiss="alert">&times;</button>
-                                        <b><fmt:message key="error"/>&nbsp;</b><fmt:message
-                                            key="${requestScope.upRestErrorMessage}"/>
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <strong><fmt:message key="r.addLogo"/></strong><br>
+                        <input required data-validation-required-message="<fmt:message key="error.empty.fields"/>"
+                               name="data" type="file" accept="image/jpeg,image/png"/>
+
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <c:if test="${requestScope.addRestErrorMessage ne null}">
+                    <script type="text/javascript">
+                        document.getElementById('addRest').click();
+                    </script>
+                    <script>
+                        $('#myTab a[href="#tab2"]').tab('show');
+                    </script>
+                    <br>
+
+                    <div class="alert alert-error">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <b><fmt:message key="error"/>&nbsp;</b><fmt:message
+                            key="${requestScope.addRestErrorMessage}"/>
+                    </div>
+                </c:if>
+                <button class="btn btn-success" type="submit"><fmt:message key="u.save"/></button>
+            </form>
+        </div>
+    </c:if>
+    <c:if test="${sessionScope.restaurant ne null}">
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab2">
+                <li class="active"><a href="#tab4" data-toggle="tab"><fmt:message key="r.info"/></a>
+                </li>
+                <li><a href="#tab5" data-toggle="tab"><fmt:message key="r.menu"/></a></li>
+                <li><a href="#tab6" data-toggle="tab"><fmt:message key="u.orders"/></a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab4">
+                    <div class="row">
+                        <div class="span5">
+                            <h3><fmt:message key="r.info"/></h3>
+                            <t:restaurantProfile restaurant="${restaurant}"/>
+                        </div>
+                        <div class="span4">
+                            <br>
+                            <button id="edrest" class="btn btn-warning" data-toggle="collapse"
+                                    data-target="#editR">
+                                <fmt:message key="u.edit"/></button>
+                            <br>
+
+                            <div id="editR" class="collapse">
+                                <form novalidate id="restaurantEdit" action="updateRestaurantProfile"
+                                      method="post" enctype="multipart/form-data">
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <input type="text" class="input-block-level"
+                                                   placeholder="<fmt:message key="name.h"/>"
+                                                   name="nameRest"/>
+                                        </div>
                                     </div>
-                                </c:if>
-                                <button class="btn btn-success" type="submit"><fmt:message
-                                        key="u.save"/></button>
-                            </form>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <input type="number" class="input-block-level"
+                                                   placeholder="<fmt:message key="r.delivery.time"/>"
+                                                   name="deliveryTimeRest"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <input type="text" class="input-block-level"
+                                                   placeholder="<fmt:message key="r.note"/>"
+                                                   name="noteRest"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <strong><fmt:message key="r.addLogo"/></strong><br>
+                                            <input name="data" type="file"
+                                                   accept="image/jpeg,image/png"/>
+                                        </div>
+                                    </div>
+                                    <c:if test="${requestScope.upRestErrorMessage ne null}">
+                                        <script type="text/javascript">
+                                            document.getElementById('edrest').click();
+                                        </script>
+                                        <script>
+                                            $('#myTab a[href="#tab2"]').tab('show');
+                                            $('#myTab2 a[href="#tab4"]').tab('show');
+                                        </script>
+                                        <br>
+
+                                        <div class="alert alert-error">
+                                            <button type="button" class="close"
+                                                    data-dismiss="alert">&times;</button>
+                                            <b><fmt:message key="error"/>&nbsp;</b><fmt:message
+                                                key="${requestScope.upRestErrorMessage}"/>
+                                        </div>
+                                    </c:if>
+                                    <button class="btn btn-success" type="submit"><fmt:message
+                                            key="u.save"/></button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="tab-pane" id="tab5">
-                <a id="addDish" class="btn btn-info" data-toggle="modal" href="#addDishModal"><fmt:message
-                        key="d.add"/></a>
-                <a class="btn btn-primary" href="showDishes?"><fmt:message key="d.dishes"/></a>
-
-                <div id="addDishModal" class="modal hide">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4><fmt:message key="d.add"/></h4>
-                    </div>
-                    <div class="modal-body">
-                        <form class="form-signin" novalidate action="addDish" method="post"
-                              enctype="multipart/form-data">
-                            <div class="control-group">
-                                <div class="controls">
-                                    <strong><fmt:message key="d.categories"/></strong>
-                                    <t:categories categories="${applicationScope.categories}"/>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <div class="controls">
-                                    <input type="text" class="input-block-level"
-                                           placeholder="<fmt:message key="d.name"/>"
-                                           name="dname" required style="width: 220px"
-                                           data-validation-required-message="<fmt:message key="error.empty.fields"/>">
-
-                                    <p class="help-block"></p>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <div class="controls">
-                                    <textarea placeholder="<fmt:message key="d.ingr"/>" required
-                                              data-validation-required-message="<fmt:message key="error.empty.fields"/>"
-                                              rows="2" name="dingredients" style="width: 220px"></textarea>
-
-                                    <p class="help-block"></p>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <div class="controls">
-                                    <strong><fmt:message key="d.weight"/></strong>
-                                    <input type="number" class="input-block-level" style="width: 100px" name="dweight"
-                                           required
-                                           data-validation-required-message="<fmt:message key="error.empty.fields"/>">
-
-                                    <p class="help-block"></p>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <div class="controls">
-                                    <strong><fmt:message key="d.cost"/></strong>
-                                    <input type="number" class="input-block-level" name="dcost" required
-                                           style="width: 100px"
-                                           data-validation-required-message="<fmt:message key="error.empty.fields"/>">
-
-                                    <p class="help-block"></p>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <div class="controls">
-                                    <strong><fmt:message key="d.image"/></strong><br>
-                                    <input required name="data" type="file"
-                                           data-validation-required-message="<fmt:message key="error.empty.fields"/>"
-                                           accept="image/jpeg,image/png"/>
-
-                                    <p class="help-block"></p>
-                                </div>
-                            </div>
-                            <c:if test="${requestScope.addDishErrorMessage ne null}">
-                                <script type="text/javascript">
-                                    document.getElementById('addDish').click();
-                                </script>
-                                <script>
-                                    $('#myTab a[href="#tab2"]').tab('show');
-                                    $('#myTab2 a[href="#tab5"]').tab('show');
-                                </script>
-                                <p></p>
-
-                                <div class="alert alert-error">
-                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                    <b><fmt:message key="error"/>&nbsp;</b><fmt:message
-                                        key="${requestScope.addDishErrorMessage}"/>
-                                </div>
-                            </c:if>
-                            <button class="btn btn-success" type="submit"><fmt:message key="d.add"/></button>
-                        </form>
-                    </div>
+                <div class="tab-pane" id="tab5">
+                    <a class="btn btn-info" data-toggle="modal" href="addDishP?"><fmt:message
+                            key="d.add"/></a>
+                    <a class="btn btn-primary" href="showDishes?"><fmt:message key="d.dishes"/></a>
+                    <c:if test="${requestScope.restaurant_dishes ne null}">
+                        <script>
+                            $('#myTab a[href="#tab2"]').tab('show');
+                            $('#myTab2 a[href="#tab5"]').tab('show');
+                        </script>
+                        <p><t:restaurantDishes restaurant_dishes="${requestScope.restaurant_dishes}"/></p>
+                    </c:if>
                 </div>
-                <c:if test="${requestScope.restaurant_dishes ne null}">
-                    <script>
-                        $('#myTab a[href="#tab2"]').tab('show');
-                        $('#myTab2 a[href="#tab5"]').tab('show');
-                    </script>
-                    <p><t:restaurantDishes restaurant_dishes="${requestScope.restaurant_dishes}"/></p>
-                </c:if>
-            </div>
-            <div class="tab-pane" id="tab6" style="min-height: 150px">
-                <div class="btn-group">
-                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><fmt:message
-                            key="o.orders"/> <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                        <li><a href="getOrders?status=1"><fmt:message key="o.queue"/> </a></li>
-                        <li><a href="getOrders?status=2"><fmt:message key="o.accepted"/> </a></li>
-                        <li><a href="getOrders?status=3"><fmt:message key="o.rejected"/> </a></li>
-                    </ul>
+                <div class="tab-pane" id="tab6" style="min-height: 150px">
+                    <div class="btn-group">
+                        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><fmt:message
+                                key="o.orders"/> <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="getOrders?status=1"><fmt:message key="o.queue"/> </a></li>
+                            <li><a href="getOrders?status=2"><fmt:message key="o.accepted"/> </a></li>
+                            <li><a href="getOrders?status=3"><fmt:message key="o.rejected"/> </a></li>
+                        </ul>
+                    </div>
+                    <c:if test="${(requestScope.RestaurantOrders ne null) || (requestScope.RestaurantNewOrders ne null) }">
+                        <p><t:restaurantsOrder restaurantOrder="${restaurantOrder}"/></p>
+                    </c:if>
                 </div>
-                <c:if test="${(requestScope.RestaurantOrders ne null) || (requestScope.RestaurantNewOrders ne null) }">
-                    <p><t:restaurantsOrder restaurantOrder="${restaurantOrder}"/></p>
-                </c:if>
             </div>
         </div>
-    </div>
-</c:if>
+    </c:if>
 </div>
 <div class="tab-pane" id="tab3">
     <h3><fmt:message key="u.myOrders"/></h3>

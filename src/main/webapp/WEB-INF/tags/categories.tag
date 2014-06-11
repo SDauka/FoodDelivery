@@ -8,7 +8,7 @@
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="text"/>
 
-<select name="dcategories">
+<select name="dcategories" style="width: 250px">
     <c:forEach items="${categories}" var="categoria">
         <option>${categoria}</option>
     </c:forEach>

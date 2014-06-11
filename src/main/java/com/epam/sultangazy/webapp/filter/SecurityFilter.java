@@ -81,6 +81,8 @@ public class SecurityFilter implements Filter {
         //restorator
         groups.put("GET/restoratorPage", restorator);
         groups.put("GET/editDishPage", restorator);
+        groups.put("GET/addDishP", restorator);
+        groups.put("GET/addDishPage", restorator);
         groups.put("GET/showDishes", restorator);
         groups.put("GET/getOrders", restorator);
         groups.put("GET/changeOrderStatus", restorator);

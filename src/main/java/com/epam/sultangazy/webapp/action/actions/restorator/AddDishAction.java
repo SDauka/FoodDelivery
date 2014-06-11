@@ -49,12 +49,14 @@ public class AddDishAction implements Action {
     private int idRestaurant;
     private String categories;
     private final String RESTORATOR_PAGE = propertyReader.getProperties("restoratorPage.page");
+    private final String ADD_DISH_PAGE = propertyReader.getProperties("addDish.page");
     private DAOFactory factory = new DAOFactory(ConnectionPool.getInstance());
     private MySQLDishDAO mySQLDishDAO = (MySQLDishDAO) factory.getDishDAO();
 
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws CannotTakeConnectionException, DAOException, SQLException {
+        List<String> categories = mySQLDishDAO.selectCategories();
         FileItemFactory ffactory = new DiskFileItemFactory();
         ServletFileUpload upload = new ServletFileUpload(ffactory);
         upload.setSizeMax(1024 * 1024 * 5);
@@ -68,12 +70,14 @@ public class AddDishAction implements Action {
                     checkAddForm(item, req);
                 } else {
                     if (!checkAddImageForm(item, req)) {
-                        return new ActionResult(RESTORATOR_PAGE, false);
+                        req.setAttribute("categories", categories);
+                        return new ActionResult(ADD_DISH_PAGE, false);
                     }
                 }
             }
             if (!insertDish(req)) {
-                return new ActionResult(RESTORATOR_PAGE, false);
+                req.setAttribute("categories", categories);
+                return new ActionResult(ADD_DISH_PAGE, false);
             } else {
                 List<Dish> dishs;
                 dishs = mySQLDishDAO.findDishesByRestaurantID(idRestaurant);
@@ -82,12 +86,14 @@ public class AddDishAction implements Action {
             }
         } catch (FileUploadException fue) {
             fue.printStackTrace();
+            req.setAttribute("categories", categories);
             req.setAttribute(ATTR_NAME_ERROR, "error.image");
-            return new ActionResult(RESTORATOR_PAGE, false);
+            return new ActionResult(ADD_DISH_PAGE, false);
         } catch (Exception e) {
             e.printStackTrace();
+            req.setAttribute("categories", categories);
             req.setAttribute(ATTR_NAME_ERROR, "error.image");
-            return new ActionResult(RESTORATOR_PAGE, false);
+            return new ActionResult(ADD_DISH_PAGE, false);
         }
     }
 
