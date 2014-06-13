@@ -298,7 +298,8 @@
                         <c:forEach items="${requestScope.deliveryServicesList}" var="entity">
                             <tbody>
                             <tr>
-                                <td><img src="${entity.image}" width="120" class="img-rounded"></td>
+                                <td><img src="http://localhost:8080/food-delivery/image/${entity.image}" width="120"
+                                         class="img-rounded"></td>
                                 <td>${entity.name}</td>
                                 <td>${requestScope.restaurantRestorators[entity.restorator].name}</td>
                                 <td>${requestScope.restaurantRestorators[entity.restorator].phone}</td>
