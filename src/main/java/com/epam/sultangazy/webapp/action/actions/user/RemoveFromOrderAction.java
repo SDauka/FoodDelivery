@@ -62,7 +62,7 @@ public class RemoveFromOrderAction implements Action {
         return new ActionResult(MENU_PAGE, false);
     }
 
-    public void showMenu(HttpServletRequest req) throws DAOException {
+    private void showMenu(HttpServletRequest req) throws DAOException {
         List<Dish> dishes;
         int idRestaurant = Integer.parseInt(req.getParameter(PARAM_NAME_RESTAURANT_ID));
         String category = req.getParameter(PARAM_NAME_CATEGORY);
@@ -77,7 +77,7 @@ public class RemoveFromOrderAction implements Action {
         req.setAttribute(ATTR_NAME_DISH_CATEGORY, category);
     }
 
-    public static void remove(String name, List<Dish> dishes) {
+    private static void remove(String name, List<Dish> dishes) {
         for (Dish dish : dishes) {
             if (dish.getName().equals(name)) {
                 dishes.remove(dish);

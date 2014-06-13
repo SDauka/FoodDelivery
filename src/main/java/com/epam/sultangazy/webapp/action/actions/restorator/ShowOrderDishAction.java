@@ -34,7 +34,7 @@ public class ShowOrderDishAction implements Action {
         return new ActionResult(ORDER_DISHES_PAGE, false);
     }
 
-    public static HashMap<String, Integer> evaluateOrderDishes(Order order) {
+    private HashMap<String, Integer> evaluateOrderDishes(Order order) {
         HashMap<String, Integer> evaluatedDishes = new HashMap<>();
         for (Dish dish : order.getFoods()) {
             Integer count = evaluatedDishes.get(dish.getName());

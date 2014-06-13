@@ -13,7 +13,6 @@ import com.epam.sultangazy.webapp.helper.PropertyReader;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 import java.util.List;
 
@@ -28,7 +27,6 @@ public class ShowMenuAction implements Action {
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
-        HttpSession session = req.getSession();
         int idRestaurant = Integer.parseInt(req.getParameter(PARAM_NAME_RESTAURANT_ID));
         DAOFactory factory = new DAOFactory(ConnectionPool.getInstance());
         MySQLRestaurantDAO mySQLRestaurantDAO = (MySQLRestaurantDAO) factory.getRestaurantDAO();

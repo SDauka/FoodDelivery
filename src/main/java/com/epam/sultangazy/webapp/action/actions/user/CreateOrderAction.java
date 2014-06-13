@@ -57,7 +57,7 @@ public class CreateOrderAction implements Action {
         }
     }
 
-    public void setOrder(HttpServletRequest req) {
+    private void setOrder(HttpServletRequest req) {
         order = new Order();
         List<Dish> food = (List<Dish>) req.getSession().getAttribute(ATTR_NAME_PREPARED_DISHES);
         User user = (User) req.getSession().getAttribute(ATTR_NAME_USER);

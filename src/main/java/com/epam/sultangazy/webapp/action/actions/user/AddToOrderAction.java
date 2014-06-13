@@ -71,7 +71,7 @@ public class AddToOrderAction implements Action {
     }
 
 
-    public void showMenu(HttpServletRequest req) throws DAOException {
+    private void showMenu(HttpServletRequest req) throws DAOException {
         List<Dish> dishes;
         int idRestaurant = Integer.parseInt(req.getParameter(PARAM_NAME_RESTAURANT_ID));
         String category = req.getParameter(PARAM_NAME_CATEGORY);

@@ -95,7 +95,7 @@ public class AddDishAction implements Action {
         }
     }
 
-    public void checkAddForm(FileItem item, HttpServletRequest req) throws UnsupportedEncodingException {
+    private void checkAddForm(FileItem item, HttpServletRequest req) throws UnsupportedEncodingException {
         Restaurant restaurant = (Restaurant) req.getSession().getAttribute(ATTR_NAME_RESTAURANT);
         if (item.getFieldName().equals(PARAM_NAME_DISH_CATEGORIES)) {
             if (item.getString().isEmpty()) {
@@ -135,7 +135,7 @@ public class AddDishAction implements Action {
         }
     }
 
-    public boolean checkAddImageForm(FileItem item, HttpServletRequest req) throws Exception {
+    private boolean checkAddImageForm(FileItem item, HttpServletRequest req) throws Exception {
         PropertyReader imagePathPropertyReader = new PropertyReader(PropertyReader.IMAGE_PATH);
         String imagePath = imagePathPropertyReader.getProperties("dishesView");
         Random rand = new Random();
@@ -164,7 +164,7 @@ public class AddDishAction implements Action {
         }
     }
 
-    public boolean insertDish(HttpServletRequest req) {
+    private boolean insertDish(HttpServletRequest req) {
         Dish dish = new Dish();
         dish.setName(name);
         dish.setIngredients(ingredients);

@@ -88,7 +88,7 @@ public class ChangeRestaurantProfileAction implements Action {
     }
 
 
-    public boolean updateRestaurant(HttpServletRequest req) {
+    private boolean updateRestaurant(HttpServletRequest req) {
         boolean check = false;
         Restaurant restaurant = new Restaurant();
         restaurant.setId(restaurantID);
@@ -107,7 +107,7 @@ public class ChangeRestaurantProfileAction implements Action {
         return check;
     }
 
-    public void checkUpdateForm(FileItem item, HttpServletRequest req) throws UnsupportedEncodingException {
+    private void checkUpdateForm(FileItem item, HttpServletRequest req) throws UnsupportedEncodingException {
         HttpSession session = req.getSession();
         Restaurant sessionRestaurant = (Restaurant) session.getAttribute(ATTR_NAME_RESTAURANT);
         if (item.getFieldName().equals(PARAM_NAME_RESTAURANT_NAME)) {
@@ -134,7 +134,7 @@ public class ChangeRestaurantProfileAction implements Action {
         restaurantID = sessionRestaurant.getId();
     }
 
-    public boolean checkImageForm(FileItem item, HttpServletRequest req) throws Exception {
+    private boolean checkImageForm(FileItem item, HttpServletRequest req) throws Exception {
         PropertyReader imagePathPropertyReader = new PropertyReader(PropertyReader.IMAGE_PATH);
         String imagePath = imagePathPropertyReader.getProperties("restaurantsLogo");
         Random rand = new Random();

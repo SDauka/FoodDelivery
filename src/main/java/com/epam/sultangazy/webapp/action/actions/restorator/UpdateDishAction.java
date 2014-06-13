@@ -92,7 +92,7 @@ public class UpdateDishAction implements Action {
         }
     }
 
-    public void checkAddForm(FileItem item, HttpServletRequest req) throws UnsupportedEncodingException, DAOException {
+    private void checkAddForm(FileItem item, HttpServletRequest req) throws UnsupportedEncodingException, DAOException {
         if (item.getFieldName().equals(PARAM_NAME_DISH_ID)) {
             idDish = Integer.parseInt(item.getString());
             editDish = mySQLDishDAO.selectDishByID(idDish);
@@ -127,7 +127,7 @@ public class UpdateDishAction implements Action {
         }
     }
 
-    public boolean checkAddImageForm(FileItem item, HttpServletRequest req) throws Exception {
+    private boolean checkAddImageForm(FileItem item, HttpServletRequest req) throws Exception {
         PropertyReader imagePathPropertyReader = new PropertyReader(PropertyReader.IMAGE_PATH);
         String imagePath = imagePathPropertyReader.getProperties("dishesView");
         Random rand = new Random();
@@ -159,7 +159,7 @@ public class UpdateDishAction implements Action {
         }
     }
 
-    public boolean updateDish(HttpServletRequest req) {
+    private boolean updateDish(HttpServletRequest req) {
         Dish dish = new Dish();
         dish.setId(idDish);
         dish.setName(name);

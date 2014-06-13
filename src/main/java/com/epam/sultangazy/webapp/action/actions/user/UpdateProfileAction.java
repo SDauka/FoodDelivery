@@ -41,7 +41,7 @@ public class UpdateProfileAction implements Action {
     private User sessionUser;
 
 
-    public boolean checkUpdateForm(HttpServletRequest req) {
+    private boolean checkUpdateForm(HttpServletRequest req) {
         HttpSession session = req.getSession();
         sessionUser = (User) session.getAttribute("user");
         id = sessionUser.getId();
@@ -64,7 +64,7 @@ public class UpdateProfileAction implements Action {
         }
     }
 
-    public boolean checkUpdateField(HttpServletRequest req) {
+    private boolean checkUpdateField(HttpServletRequest req) {
         if (name.isEmpty()) {
             name = sessionUser.getName();
         }

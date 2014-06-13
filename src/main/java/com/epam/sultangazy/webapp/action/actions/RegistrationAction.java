@@ -77,7 +77,7 @@ public class RegistrationAction implements Action {
         return actionResult;
     }
 
-    public void reloadForm(HttpServletRequest request) {
+    private void reloadForm(HttpServletRequest request) {
         request.setAttribute(PARAM_NAME_LOGIN, email);
         request.setAttribute(PARAM_NAME_NAME, name);
         request.setAttribute(PARAM_NAME_PHONE, phone);
