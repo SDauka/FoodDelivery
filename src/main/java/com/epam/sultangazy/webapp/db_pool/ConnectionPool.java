@@ -19,6 +19,7 @@ public class ConnectionPool {
     private String password;
     private int maxConn;
 
+
     private ConnectionPool() {
         this.DRIVER_NAME = propertyReader.getProperties("driver");
         this.url = propertyReader.getProperties("url");

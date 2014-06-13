@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class Controller extends HttpServlet {
     private static Logger LOG = Logger.getLogger(Controller.class);
@@ -23,14 +22,11 @@ public class Controller extends HttpServlet {
         ActionResult result = null;
         try {
             result = action.execute(req, resp);
-        } catch (CannotTakeConnectionException e) {
-            e.printStackTrace();
         } catch (DAOException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } finally {
+            returnResult(req, resp, result);
         }
-        returnResult(req, resp, result);
     }
 
     private void returnResult(HttpServletRequest req, HttpServletResponse resp, ActionResult result) {

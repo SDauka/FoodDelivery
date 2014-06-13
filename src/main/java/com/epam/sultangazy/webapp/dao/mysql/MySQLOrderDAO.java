@@ -1,6 +1,6 @@
 package com.epam.sultangazy.webapp.dao.mysql;
 
-import com.epam.sultangazy.webapp.dao.factory.DAOFactory;
+import com.epam.sultangazy.webapp.dao.DAOFactory;
 import com.epam.sultangazy.webapp.dao.OrderDAO;
 import com.epam.sultangazy.webapp.entity.Dish;
 import com.epam.sultangazy.webapp.entity.Order;

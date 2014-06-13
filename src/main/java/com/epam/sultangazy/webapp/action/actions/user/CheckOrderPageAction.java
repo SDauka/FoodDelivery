@@ -2,8 +2,8 @@ package com.epam.sultangazy.webapp.action.actions.user;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
+import com.epam.sultangazy.webapp.dao.DAOFactory;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
-import com.epam.sultangazy.webapp.dao.factory.DAOFactory;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLDishDAO;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;

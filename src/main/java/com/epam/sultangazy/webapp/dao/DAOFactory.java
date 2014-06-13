@@ -1,9 +1,5 @@
-package com.epam.sultangazy.webapp.dao.factory;
+package com.epam.sultangazy.webapp.dao;
 
-import com.epam.sultangazy.webapp.dao.DishDAO;
-import com.epam.sultangazy.webapp.dao.OrderDAO;
-import com.epam.sultangazy.webapp.dao.RestaurantDAO;
-import com.epam.sultangazy.webapp.dao.UserDAO;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLDishDAO;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLOrderDAO;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
