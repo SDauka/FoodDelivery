@@ -2,17 +2,15 @@ package com.epam.sultangazy.webapp.action.actions.admin;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLUserDAO;
+import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.dao.factory.DAOFactory;
+import com.epam.sultangazy.webapp.dao.mysql.MySQLUserDAO;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.User;
-import com.epam.sultangazy.webapp.dao.exception.CannotTakeConnectionException;
-import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.helper.PropertyReader;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
 import java.util.List;
 
 public class AcceptRequestAction implements Action {
@@ -29,7 +27,7 @@ public class AcceptRequestAction implements Action {
     private MySQLUserDAO userDAO;
 
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws CannotTakeConnectionException, DAOException, SQLException {
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
         userDAO = (MySQLUserDAO) factory.getUserDAO();
         int requestId = Integer.parseInt(req.getParameter(PARAM_NAME_REQUEST_ID));
         register(req);
@@ -39,7 +37,7 @@ public class AcceptRequestAction implements Action {
         return new ActionResult(ADMIN_PROFILE, false);
     }
 
-    private void register(HttpServletRequest req) throws CannotTakeConnectionException, DAOException {
+    private void register(HttpServletRequest req) throws DAOException {
         String email = req.getParameter(PARAM_NAME_LOGIN);
         String password = req.getParameter(PARAM_NAME_PASSWORD);
         String name = req.getParameter(PARAM_NAME_NAME);

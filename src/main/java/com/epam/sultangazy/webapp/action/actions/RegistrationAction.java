@@ -6,7 +6,6 @@ import com.epam.sultangazy.webapp.dao.mysql.MySQLUserDAO;
 import com.epam.sultangazy.webapp.dao.factory.DAOFactory;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.User;
-import com.epam.sultangazy.webapp.dao.exception.CannotTakeConnectionException;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.helper.PropertyReader;
 import com.epam.sultangazy.webapp.helper.ValidationUtils;
@@ -39,7 +38,7 @@ public class RegistrationAction implements Action {
     private int role;
 
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws CannotTakeConnectionException, DAOException {
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
         ActionResult actionResult;
         email = req.getParameter(PARAM_NAME_LOGIN);
         password = req.getParameter(PARAM_NAME_PASSWORD);
@@ -92,7 +91,7 @@ public class RegistrationAction implements Action {
                 & ValidationUtils.isEmailValid(request);
     }
 
-    private boolean register() throws CannotTakeConnectionException, DAOException {
+    private boolean register() throws DAOException {
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
         DAOFactory factory = new DAOFactory(ConnectionPool.getInstance());
         MySQLUserDAO userDAO = (MySQLUserDAO) factory.getUserDAO();

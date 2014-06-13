@@ -49,7 +49,7 @@ public class MySQLUserDAO implements UserDAO {
     }
 
     @Override
-    public Map<Integer, User> findRestorators() throws DAOException, SQLException {
+    public Map<Integer, User> findRestorators() throws DAOException {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -76,14 +76,18 @@ public class MySQLUserDAO implements UserDAO {
             throw new DAOException(e);
         } finally {
             ConnectionPool.getInstance().setFreeConnection(connection);
-            statement.close();
-            resultSet.close();
+            try {
+                statement.close();
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return users;
     }
 
     @Override
-    public List<User> findUsers() throws DAOException, SQLException {
+    public List<User> findUsers() throws DAOException {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -110,8 +114,12 @@ public class MySQLUserDAO implements UserDAO {
             throw new DAOException(e);
         } finally {
             ConnectionPool.getInstance().setFreeConnection(connection);
-            statement.close();
-            resultSet.close();
+            try {
+                statement.close();
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return users;
     }
@@ -201,7 +209,7 @@ public class MySQLUserDAO implements UserDAO {
     }
 
     @Override
-    public List<User> findCooperationRequests() throws DAOException, SQLException {
+    public List<User> findCooperationRequests() throws DAOException {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -228,8 +236,12 @@ public class MySQLUserDAO implements UserDAO {
             throw new DAOException(e);
         } finally {
             ConnectionPool.getInstance().setFreeConnection(connection);
-            statement.close();
-            resultSet.close();
+            try {
+                statement.close();
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return users;
     }

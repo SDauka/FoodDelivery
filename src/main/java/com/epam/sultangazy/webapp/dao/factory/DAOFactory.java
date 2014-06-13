@@ -1,15 +1,14 @@
 package com.epam.sultangazy.webapp.dao.factory;
 
-import com.epam.sultangazy.webapp.dao.mysql.MySQLDishDAO;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLOrderDAO;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLUserDAO;
 import com.epam.sultangazy.webapp.dao.DishDAO;
 import com.epam.sultangazy.webapp.dao.OrderDAO;
 import com.epam.sultangazy.webapp.dao.RestaurantDAO;
 import com.epam.sultangazy.webapp.dao.UserDAO;
+import com.epam.sultangazy.webapp.dao.mysql.MySQLDishDAO;
+import com.epam.sultangazy.webapp.dao.mysql.MySQLOrderDAO;
+import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
+import com.epam.sultangazy.webapp.dao.mysql.MySQLUserDAO;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
-import com.epam.sultangazy.webapp.dao.exception.CannotTakeConnectionException;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -35,7 +34,7 @@ public class DAOFactory {
         return conn;
     }
 
-    public UserDAO getUserDAO() throws CannotTakeConnectionException {
+    public UserDAO getUserDAO() {
         return new MySQLUserDAO(this);
     }
 

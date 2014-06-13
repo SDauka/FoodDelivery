@@ -1,6 +1,5 @@
 package com.epam.sultangazy.webapp.action;
 
-import com.epam.sultangazy.webapp.dao.exception.CannotTakeConnectionException;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
 
 import javax.servlet.http.HttpServletRequest;

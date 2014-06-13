@@ -2,7 +2,6 @@ package com.epam.sultangazy.webapp.action.actions.restorator;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.exception.CannotTakeConnectionException;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.dao.factory.DAOFactory;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLDishDAO;
@@ -11,7 +10,6 @@ import com.epam.sultangazy.webapp.helper.PropertyReader;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
 import java.util.List;
 
 public class AddDishPageAction implements Action {
@@ -19,7 +17,7 @@ public class AddDishPageAction implements Action {
     private final String ADD_DISH_PAGE = propertyReader.getProperties("addDish.page");
 
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws CannotTakeConnectionException, DAOException, SQLException {
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
         DAOFactory factory = new DAOFactory(ConnectionPool.getInstance());
         MySQLDishDAO mySQLDishDAO = (MySQLDishDAO) factory.getDishDAO();
         List<String> categories = mySQLDishDAO.selectCategories();

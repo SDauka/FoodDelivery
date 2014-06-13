@@ -2,13 +2,11 @@ package com.epam.sultangazy.webapp.action.actions.restorator;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.exception.CannotTakeConnectionException;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.helper.PropertyReader;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
 
 public class EditDishPageAction implements Action {
     private PropertyReader propertyReader = new PropertyReader(PropertyReader.PAGES_PROPERTIES);
@@ -17,7 +15,7 @@ public class EditDishPageAction implements Action {
     private static final String PARAM_NAME_DISH_ID = "idDish";
 
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws CannotTakeConnectionException, DAOException, SQLException {
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
         int idDish = Integer.parseInt(req.getParameter(PARAM_NAME_DISH_ID));
         req.setAttribute(ATTR_NAME_EDIT_DISH_ID, idDish);
         return new ActionResult(EDIT_DISH_PAGE, false);

@@ -1,14 +1,13 @@
 package com.epam.sultangazy.webapp.dao;
 
-import com.epam.sultangazy.webapp.entity.Restaurant;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
+import com.epam.sultangazy.webapp.entity.Restaurant;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
 public interface RestaurantDAO {
-    public List<Restaurant> findRestaurants() throws DAOException, SQLException;
+    public List<Restaurant> findRestaurants() throws DAOException;
 
     public void deleteRestaurantById(int id, int idrestorator) throws DAOException;
 
@@ -22,5 +21,5 @@ public interface RestaurantDAO {
 
     public void insertRestaurant(Restaurant restaurant, int restorator) throws DAOException;
 
-    public HashMap<Integer, String> selectRestaurantsName() throws DAOException, SQLException;
+    public HashMap<Integer, String> selectRestaurantsName() throws DAOException;
 }

@@ -2,22 +2,19 @@ package com.epam.sultangazy.webapp.action.actions.user;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
+import com.epam.sultangazy.webapp.dao.exception.DAOException;
+import com.epam.sultangazy.webapp.dao.factory.DAOFactory;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLOrderDAO;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
-import com.epam.sultangazy.webapp.dao.factory.DAOFactory;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.Order;
 import com.epam.sultangazy.webapp.entity.User;
-import com.epam.sultangazy.webapp.dao.exception.CannotTakeConnectionException;
-import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.helper.PropertyReader;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 
 public class OrderListAction implements Action {
     private static final String ATTR_NAME_USER = "user";
@@ -29,7 +26,7 @@ public class OrderListAction implements Action {
     private final String ADMIN_PAGE = propertyReader.getProperties("adminProfile.page");
 
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws CannotTakeConnectionException, DAOException, SQLException {
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
         ActionResult actionResult = null;
         LinkedList<Order> orders;
         HashMap<Integer, String> restaurants;

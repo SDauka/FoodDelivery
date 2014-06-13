@@ -2,20 +2,18 @@ package com.epam.sultangazy.webapp.action.actions;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
+import com.epam.sultangazy.webapp.dao.exception.DAOException;
+import com.epam.sultangazy.webapp.dao.factory.DAOFactory;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLDishDAO;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
-import com.epam.sultangazy.webapp.dao.factory.DAOFactory;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.Dish;
 import com.epam.sultangazy.webapp.entity.Restaurant;
-import com.epam.sultangazy.webapp.dao.exception.CannotTakeConnectionException;
-import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.helper.PropertyReader;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
-import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.List;
 
@@ -31,7 +29,7 @@ public class PicksByCategoryAction implements Action {
     private final String MENU_PAGE = propertyReader.getProperties("menuPage.page");
 
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws CannotTakeConnectionException, DAOException, SQLException {
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
         if (req.getParameter(PARAM_NAME_REST) != null && req.getParameter(PARAM_NAME_CATEGORY) != null) {
             int idRestaurant = Integer.parseInt(req.getParameter(PARAM_NAME_REST));
             String category;

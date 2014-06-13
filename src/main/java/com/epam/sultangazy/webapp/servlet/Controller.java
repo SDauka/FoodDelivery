@@ -3,7 +3,6 @@ package com.epam.sultangazy.webapp.servlet;
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionFactory;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.exception.CannotTakeConnectionException;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import org.apache.log4j.Logger;
 

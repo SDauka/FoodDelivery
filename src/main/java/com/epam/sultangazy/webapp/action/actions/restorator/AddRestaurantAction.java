@@ -2,13 +2,12 @@ package com.epam.sultangazy.webapp.action.actions.restorator;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
+import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.dao.factory.DAOFactory;
+import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.Restaurant;
 import com.epam.sultangazy.webapp.entity.User;
-import com.epam.sultangazy.webapp.dao.exception.CannotTakeConnectionException;
-import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.helper.ImageResizer;
 import com.epam.sultangazy.webapp.helper.PropertyReader;
 import org.apache.commons.fileupload.FileItem;
@@ -26,7 +25,6 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -51,7 +49,7 @@ public class AddRestaurantAction implements Action {
     private MySQLRestaurantDAO restaurantDAO = (MySQLRestaurantDAO) factory.getRestaurantDAO();
 
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws CannotTakeConnectionException, DAOException, SQLException {
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
         HttpSession session = req.getSession();
         FileItemFactory ffactory = new DiskFileItemFactory();
         ServletFileUpload upload = new ServletFileUpload(ffactory);
@@ -72,7 +70,8 @@ public class AddRestaurantAction implements Action {
             }
             if (!insertRestaurant(req)) {
                 return new ActionResult(RESTORATOR_PAGE, false);
-            } else if (restaurantDAO.checkRestorator(restoratorID)) {
+            }
+            if (restaurantDAO.checkRestorator(restoratorID)) {
                 Restaurant restaurt;
                 restaurt = restaurantDAO.selectRestaurantByRestoratorID(restoratorID);
                 session.setAttribute(ATTR_NAME_RESTAURANT, restaurt);
@@ -141,25 +140,25 @@ public class AddRestaurantAction implements Action {
         if (item.getName().isEmpty()) {
             req.setAttribute(ATTR_NAME_ERROR, "error.empty.fields");
             return false;
+        }
+        image = new String(item.getName().getBytes("iso-8859-1"), "UTF-8");
+        image = name.replaceAll(" ", "") + "_" + randomNumber + "_" + image;
+        Path path1;
+        path1 = Paths.get(image);
+        String type = Files.probeContentType(path1).split("/")[0];
+        File disk;
+        if (type.equals("image")) {
+            String path = imagePath + File.separator + image;
+            disk = new File(path);
+            item.write(disk);
+            LOG.debug("Upload: image uploaded");
+            ImageResizer.ImageResize(255, 170, path);
+            return true;
         } else {
-            image = new String(item.getName().getBytes("iso-8859-1"), "UTF-8");
-            image = name.replaceAll(" ", "") + "_" + randomNumber + "_" + image;
-            Path path1;
-            path1 = Paths.get(image);
-            String type = Files.probeContentType(path1).split("/")[0];
-            File disk;
-            if (type.equals("image")) {
-                String path = imagePath + File.separator + image;
-                disk = new File(path);
-                item.write(disk);
-                LOG.debug("Upload: image uploaded");
-                ImageResizer.ImageResize(255, 170, path);
-                return true;
-            } else {
-                req.setAttribute(ATTR_NAME_ERROR, "error.imageType");
-                LOG.debug("Upload: image type error");
-                return false;
-            }
+            req.setAttribute(ATTR_NAME_ERROR, "error.imageType");
+            LOG.debug("Upload: image type error");
+            return false;
         }
     }
+
 }

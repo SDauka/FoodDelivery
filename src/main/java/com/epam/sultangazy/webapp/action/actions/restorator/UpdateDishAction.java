@@ -2,13 +2,12 @@ package com.epam.sultangazy.webapp.action.actions.restorator;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLDishDAO;
+import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.dao.factory.DAOFactory;
+import com.epam.sultangazy.webapp.dao.mysql.MySQLDishDAO;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.Dish;
 import com.epam.sultangazy.webapp.entity.Restaurant;
-import com.epam.sultangazy.webapp.dao.exception.CannotTakeConnectionException;
-import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.helper.ImageResizer;
 import com.epam.sultangazy.webapp.helper.PropertyReader;
 import org.apache.commons.fileupload.FileItem;
@@ -26,7 +25,6 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -54,7 +52,7 @@ public class UpdateDishAction implements Action {
     private MySQLDishDAO mySQLDishDAO = (MySQLDishDAO) factory.getDishDAO();
     private Dish editDish;
 
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws CannotTakeConnectionException, DAOException, SQLException {
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
         HttpSession session = req.getSession();
         Restaurant sessionRestaurant = (Restaurant) session.getAttribute(ATTR_NAME_RESTAURANT);
         FileItemFactory ffactory = new DiskFileItemFactory();
@@ -94,7 +92,7 @@ public class UpdateDishAction implements Action {
         }
     }
 
-    public void checkAddForm(FileItem item, HttpServletRequest req) throws UnsupportedEncodingException, SQLException, DAOException {
+    public void checkAddForm(FileItem item, HttpServletRequest req) throws UnsupportedEncodingException, DAOException {
         if (item.getFieldName().equals(PARAM_NAME_DISH_ID)) {
             idDish = Integer.parseInt(item.getString());
             editDish = mySQLDishDAO.selectDishByID(idDish);

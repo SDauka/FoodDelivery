@@ -2,7 +2,6 @@ package com.epam.sultangazy.webapp.action.actions;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.exception.CannotTakeConnectionException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.Cookie;
@@ -17,7 +16,7 @@ public class ChangeLanguageAction implements Action {
     private String referrer;
 
     @Override
-    public ActionResult execute(HttpServletRequest request, HttpServletResponse response) throws CannotTakeConnectionException {
+    public ActionResult execute(HttpServletRequest request, HttpServletResponse response) {
         if (request.getParameter(LOCALE) != null) {
             LOG.debug("Locale: " + request.getParameter(LOCALE));
             HttpSession session = request.getSession();

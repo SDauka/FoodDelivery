@@ -2,12 +2,11 @@ package com.epam.sultangazy.webapp.action.actions.restorator;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
+import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.dao.factory.DAOFactory;
+import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.Restaurant;
-import com.epam.sultangazy.webapp.dao.exception.CannotTakeConnectionException;
-import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.helper.ImageResizer;
 import com.epam.sultangazy.webapp.helper.PropertyReader;
 import org.apache.commons.fileupload.FileItem;
@@ -25,7 +24,6 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -49,7 +47,7 @@ public class ChangeRestaurantProfileAction implements Action {
     private MySQLRestaurantDAO restaurantDAO = (MySQLRestaurantDAO) factory.getRestaurantDAO();
 
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws CannotTakeConnectionException, DAOException, SQLException {
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
         LOG.debug("Update restaurant info");
         HttpSession session = req.getSession();
         FileItemFactory ffactory = new DiskFileItemFactory();
@@ -146,27 +144,27 @@ public class ChangeRestaurantProfileAction implements Action {
         if (item.getName().isEmpty()) {
             image = sessionRestaurant.getImage().substring(12);
             return true;
+        }
+        String oldImage = sessionRestaurant.getImage().substring(12);
+        new File(imagePath + File.separator + oldImage).delete();
+        image = new String(item.getName().getBytes("iso-8859-1"), "UTF-8");
+        image = name.replaceAll(" ", "") + "_" + randomNumber + "_" + image;
+        Path path1;
+        path1 = Paths.get(image);
+        String type = Files.probeContentType(path1).split("/")[0];
+        File disk;
+        if (type.equals("image")) {
+            String path = imagePath + File.separator + image;
+            disk = new File(path);
+            item.write(disk);
+            ImageResizer.ImageResize(255, 170, path);
+            LOG.debug("Upload: image uploaded");
+            return true;
         } else {
-            String oldImage = sessionRestaurant.getImage().substring(12);
-            new File(imagePath + File.separator + oldImage).delete();
-            image = new String(item.getName().getBytes("iso-8859-1"), "UTF-8");
-            image = name.replaceAll(" ", "") + "_" + randomNumber + "_" + image;
-            Path path1;
-            path1 = Paths.get(image);
-            String type = Files.probeContentType(path1).split("/")[0];
-            File disk;
-            if (type.equals("image")) {
-                String path = imagePath + File.separator + image;
-                disk = new File(path);
-                item.write(disk);
-                ImageResizer.ImageResize(255, 170, path);
-                LOG.debug("Upload: image uploaded");
-                return true;
-            } else {
-                LOG.debug("Upload: image type error");
-                req.setAttribute(ATTR_NAME_ERROR, "error.imageType");
-                return false;
-            }
+            LOG.debug("Upload: image type error");
+            req.setAttribute(ATTR_NAME_ERROR, "error.imageType");
+            return false;
         }
     }
+
 }

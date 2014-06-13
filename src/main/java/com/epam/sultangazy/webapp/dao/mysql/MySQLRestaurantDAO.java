@@ -133,7 +133,7 @@ public class MySQLRestaurantDAO implements RestaurantDAO {
     }
 
     @Override
-    public HashMap<Integer, String> selectRestaurantsName() throws DAOException, SQLException {
+    public HashMap<Integer, String> selectRestaurantsName() throws DAOException {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -155,14 +155,19 @@ public class MySQLRestaurantDAO implements RestaurantDAO {
             throw new DAOException(e);
         } finally {
             ConnectionPool.getInstance().setFreeConnection(connection);
-            statement.close();
-            resultSet.close();
+            try {
+                statement.close();
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
         }
         return restaurants;
     }
 
     @Override
-    public List<Restaurant> findRestaurants() throws DAOException, SQLException {
+    public List<Restaurant> findRestaurants() throws DAOException {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -188,8 +193,12 @@ public class MySQLRestaurantDAO implements RestaurantDAO {
             throw new DAOException(e);
         } finally {
             ConnectionPool.getInstance().setFreeConnection(connection);
-            statement.close();
-            resultSet.close();
+            try {
+                statement.close();
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return restaurants;
     }

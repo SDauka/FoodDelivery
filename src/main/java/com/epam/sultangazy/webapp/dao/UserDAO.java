@@ -1,9 +1,8 @@
 package com.epam.sultangazy.webapp.dao;
 
-import com.epam.sultangazy.webapp.entity.User;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
+import com.epam.sultangazy.webapp.entity.User;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -15,13 +14,13 @@ public interface UserDAO {
 
     public User findUser(String login) throws DAOException;
 
-    public List<User> findUsers() throws DAOException, SQLException;
+    public List<User> findUsers() throws DAOException;
 
     public void deleteUser(int id) throws DAOException;
 
-    public Map<Integer, User> findRestorators() throws DAOException, SQLException;
+    public Map<Integer, User> findRestorators() throws DAOException;
 
-    public List<User> findCooperationRequests() throws DAOException, SQLException;
+    public List<User> findCooperationRequests() throws DAOException;
 
     public void deleteCooperationRequest(int id) throws DAOException;
 

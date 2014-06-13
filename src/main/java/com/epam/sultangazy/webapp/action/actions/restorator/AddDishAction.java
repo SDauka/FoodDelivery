@@ -2,13 +2,12 @@ package com.epam.sultangazy.webapp.action.actions.restorator;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLDishDAO;
+import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.dao.factory.DAOFactory;
+import com.epam.sultangazy.webapp.dao.mysql.MySQLDishDAO;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.Dish;
 import com.epam.sultangazy.webapp.entity.Restaurant;
-import com.epam.sultangazy.webapp.dao.exception.CannotTakeConnectionException;
-import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.helper.ImageResizer;
 import com.epam.sultangazy.webapp.helper.PropertyReader;
 import org.apache.commons.fileupload.FileItem;
@@ -25,7 +24,6 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -55,7 +53,7 @@ public class AddDishAction implements Action {
 
 
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws CannotTakeConnectionException, DAOException, SQLException {
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
         List<String> categories = mySQLDishDAO.selectCategories();
         FileItemFactory ffactory = new DiskFileItemFactory();
         ServletFileUpload upload = new ServletFileUpload(ffactory);
@@ -78,12 +76,12 @@ public class AddDishAction implements Action {
             if (!insertDish(req)) {
                 req.setAttribute("categories", categories);
                 return new ActionResult(ADD_DISH_PAGE, false);
-            } else {
-                List<Dish> dishs;
-                dishs = mySQLDishDAO.findDishesByRestaurantID(idRestaurant);
-                req.setAttribute(ATTR_NAME_RESTAURANT_DISHES, dishs);
-                return new ActionResult(RESTORATOR_PAGE, false);
             }
+            List<Dish> dishs;
+            dishs = mySQLDishDAO.findDishesByRestaurantID(idRestaurant);
+            req.setAttribute(ATTR_NAME_RESTAURANT_DISHES, dishs);
+            return new ActionResult(RESTORATOR_PAGE, false);
+
         } catch (FileUploadException fue) {
             fue.printStackTrace();
             req.setAttribute("categories", categories);
@@ -145,25 +143,24 @@ public class AddDishAction implements Action {
         if (item.getName().isEmpty()) {
             req.setAttribute(ATTR_NAME_ERROR, "error.empty.fields");
             return false;
+        }
+        image = new String(item.getName().getBytes("iso-8859-1"), "UTF-8");
+        image = randomNumber + "_" + image;
+        Path path1;
+        path1 = Paths.get(image);
+        String type = Files.probeContentType(path1).split("/")[0];
+        File disk;
+        if (type.equals("image")) {
+            String path = imagePath + File.separator + image;
+            disk = new File(path);
+            item.write(disk);
+            LOG.debug("Upload: image uploaded");
+            ImageResizer.ImageResize(180, 120, path);
+            return true;
         } else {
-            image = new String(item.getName().getBytes("iso-8859-1"), "UTF-8");
-            image = randomNumber + "_" + image;
-            Path path1;
-            path1 = Paths.get(image);
-            String type = Files.probeContentType(path1).split("/")[0];
-            File disk;
-            if (type.equals("image")) {
-                String path = imagePath + File.separator + image;
-                disk = new File(path);
-                item.write(disk);
-                LOG.debug("Upload: image uploaded");
-                ImageResizer.ImageResize(180, 120, path);
-                return true;
-            } else {
-                req.setAttribute(ATTR_NAME_ERROR, "error.imageType");
-                LOG.debug("Upload: image type error");
-                return false;
-            }
+            req.setAttribute(ATTR_NAME_ERROR, "error.imageType");
+            LOG.debug("Upload: image type error");
+            return false;
         }
     }
 

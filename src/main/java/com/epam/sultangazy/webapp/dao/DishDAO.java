@@ -1,18 +1,17 @@
 package com.epam.sultangazy.webapp.dao;
 
-import com.epam.sultangazy.webapp.entity.Dish;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
+import com.epam.sultangazy.webapp.entity.Dish;
 
-import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.List;
 
 public interface DishDAO {
-    public List<Dish> findDishesByRestaurantID(int id) throws DAOException, SQLException;
+    public List<Dish> findDishesByRestaurantID(int id) throws DAOException;
 
-    public Dish selectDishByID(int id) throws DAOException, SQLException;
+    public Dish selectDishByID(int id) throws DAOException;
 
-    public List<String> selectCategories() throws DAOException, SQLException;
+    public List<String> selectCategories() throws DAOException;
 
     public boolean updateDish(Dish dish) throws DAOException;
 

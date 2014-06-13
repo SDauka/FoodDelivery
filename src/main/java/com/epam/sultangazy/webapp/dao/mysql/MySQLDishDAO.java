@@ -125,7 +125,7 @@ public class MySQLDishDAO implements DishDAO {
     }
 
     @Override
-    public Dish selectDishByID(int id) throws DAOException, SQLException {
+    public Dish selectDishByID(int id) throws DAOException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -170,7 +170,7 @@ public class MySQLDishDAO implements DishDAO {
     }
 
     @Override
-    public List<String> selectCategories() throws DAOException, SQLException {
+    public List<String> selectCategories() throws DAOException {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -189,14 +189,18 @@ public class MySQLDishDAO implements DishDAO {
             throw new DAOException(e);
         } finally {
             ConnectionPool.getInstance().setFreeConnection(connection);
-            statement.close();
-            resultSet.close();
+            try {
+                statement.close();
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return categories;
     }
 
     @Override
-    public List<Dish> findDishesByRestaurantID(int id) throws DAOException, SQLException {
+    public List<Dish> findDishesByRestaurantID(int id) throws DAOException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;

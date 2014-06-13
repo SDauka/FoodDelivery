@@ -6,7 +6,6 @@ import com.epam.sultangazy.webapp.dao.mysql.MySQLUserDAO;
 import com.epam.sultangazy.webapp.dao.factory.DAOFactory;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.User;
-import com.epam.sultangazy.webapp.dao.exception.CannotTakeConnectionException;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.helper.PropertyReader;
 import org.jasypt.util.password.BasicPasswordEncryptor;
@@ -96,7 +95,7 @@ public class UpdateProfileAction implements Action {
     }
 
     @Override
-    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws CannotTakeConnectionException, DAOException {
+    public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
         HttpSession session = req.getSession();
         DAOFactory factory = new DAOFactory(ConnectionPool.getInstance());
         MySQLUserDAO userDAO = (MySQLUserDAO) factory.getUserDAO();
@@ -134,7 +133,7 @@ public class UpdateProfileAction implements Action {
         }
     }
 
-    private void updateUser(int id, String name, String address, String newPassword, String phone) throws CannotTakeConnectionException {
+    private void updateUser(int id, String name, String address, String newPassword, String phone) {
         User user = new User(name, address, newPassword, phone);
         user.setId(id);
         DAOFactory factory = new DAOFactory(ConnectionPool.getInstance());
