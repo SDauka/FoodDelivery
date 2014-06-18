@@ -52,9 +52,9 @@ public class ConnectionPool {
     }
 
     public synchronized Connection getConnection() throws SQLException {
-        Connection conn = null;
+        Connection conn;
         if (!freeConnections.isEmpty()) {
-            conn = (Connection) freeConnections.get(freeConnections.size() - 1);
+            conn = freeConnections.get(freeConnections.size() - 1);
             freeConnections.remove(conn);
             try {
                 if (conn.isClosed()) {

@@ -2,7 +2,7 @@ package com.epam.sultangazy.webapp.action.actions.admin;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.DAOFactory;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLUserDAO;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
@@ -23,7 +23,7 @@ public class AcceptRequestAction implements Action {
     private static final String ATTR_NAME_REQUESTS_LIST = "CooperationRequestList";
     private PropertyReader propertyReader = new PropertyReader(PropertyReader.PAGES_PROPERTIES);
     private final String ADMIN_PROFILE = propertyReader.getProperties("adminProfile.page");
-    private DAOFactory factory = new DAOFactory(ConnectionPool.getInstance());
+    private MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
     private MySQLUserDAO userDAO;
 
     @Override

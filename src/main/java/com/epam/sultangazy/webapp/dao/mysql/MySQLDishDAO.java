@@ -1,8 +1,8 @@
 package com.epam.sultangazy.webapp.dao.mysql;
 
 
-import com.epam.sultangazy.webapp.dao.DAOFactory;
 import com.epam.sultangazy.webapp.dao.DishDAO;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.Dish;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
@@ -27,9 +27,9 @@ public class MySQLDishDAO implements DishDAO {
     private static final String SELECT_DISHES_BY_CATEGORIES = "Select dish.idDish, dish.name, dish.ingredients, dish.weight, " +
             "dish.cost, dish.image, categories.name as 'categories'  from fooddelivery.categories, " +
             "fooddelivery.dish where id_categories = categories.idcategories and categories.name = ? and dish.id_restoran =? and dish.deleted not like 'true'";
-    private DAOFactory factory;
+    private MySQLDAOFactory factory;
 
-    public MySQLDishDAO(DAOFactory factory) {
+    public MySQLDishDAO(MySQLDAOFactory factory) {
         this.factory = factory;
     }
 

@@ -2,7 +2,7 @@ package com.epam.sultangazy.webapp.action.actions.restorator;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.DAOFactory;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLDishDAO;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
@@ -48,7 +48,7 @@ public class AddDishAction implements Action {
     private String categories;
     private final String RESTORATOR_PAGE = propertyReader.getProperties("restoratorPage.page");
     private final String ADD_DISH_PAGE = propertyReader.getProperties("addDish.page");
-    private DAOFactory factory = new DAOFactory(ConnectionPool.getInstance());
+    private MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
     private MySQLDishDAO mySQLDishDAO = (MySQLDishDAO) factory.getDishDAO();
 
 

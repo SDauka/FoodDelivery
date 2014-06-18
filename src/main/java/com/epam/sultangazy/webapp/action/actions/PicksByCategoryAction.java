@@ -2,7 +2,7 @@ package com.epam.sultangazy.webapp.action.actions;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.DAOFactory;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLDishDAO;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
@@ -39,7 +39,7 @@ public class PicksByCategoryAction implements Action {
                 e.printStackTrace();
                 return new ActionResult(MENU_PAGE, false);
             }
-            DAOFactory factory = new DAOFactory(ConnectionPool.getInstance());
+            MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
             MySQLDishDAO mySQLDishDAO = (MySQLDishDAO) factory.getDishDAO();
             MySQLRestaurantDAO mySQLRestaurantDAO = (MySQLRestaurantDAO) factory.getRestaurantDAO();
             List<Dish> dishes;

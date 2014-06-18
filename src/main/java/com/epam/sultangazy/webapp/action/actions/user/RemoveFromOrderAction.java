@@ -2,7 +2,7 @@ package com.epam.sultangazy.webapp.action.actions.user;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.DAOFactory;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLDishDAO;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
@@ -32,7 +32,7 @@ public class RemoveFromOrderAction implements Action {
     private static final String PARAM_NAME_CATEGORY = "category";
     private PropertyReader propertyReader = new PropertyReader(PropertyReader.PAGES_PROPERTIES);
     private final String MENU_PAGE = propertyReader.getProperties("menuPage.page");
-    private DAOFactory factory = new DAOFactory(ConnectionPool.getInstance());
+    private MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
     private MySQLDishDAO mySQLDishDAO = (MySQLDishDAO) factory.getDishDAO();
     private MySQLRestaurantDAO mySQLRestaurantDAO = (MySQLRestaurantDAO) factory.getRestaurantDAO();
 

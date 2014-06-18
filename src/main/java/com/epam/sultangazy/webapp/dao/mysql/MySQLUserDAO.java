@@ -1,8 +1,8 @@
 package com.epam.sultangazy.webapp.dao.mysql;
 
 
-import com.epam.sultangazy.webapp.dao.DAOFactory;
 import com.epam.sultangazy.webapp.dao.UserDAO;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.User;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
@@ -26,9 +26,9 @@ public class MySQLUserDAO implements UserDAO {
     private static final String SELECT_ALL_USERS_NOT_DELETED = "select * from fooddelivery.user where user.deleted not like 'true' and user.user_type_id = 1";
     private static final String DELETE_USER_BY_ID = "update fooddelivery.user set user.email = 'none' , user.deleted = 'true' where user.idUser = ?";
     private static final String SELECT_ALL_RESTORATORS_NOT_DELETED = "select * from fooddelivery.user where user.deleted not like 'true' and user.user_type_id = 2";
-    private DAOFactory factory;
+    private MySQLDAOFactory factory;
 
-    public MySQLUserDAO(DAOFactory factory) {
+    public MySQLUserDAO(MySQLDAOFactory factory) {
         this.factory = factory;
     }
 

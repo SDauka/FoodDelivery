@@ -2,7 +2,7 @@ package com.epam.sultangazy.webapp.action.actions.admin;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.DAOFactory;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLUserDAO;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
@@ -21,7 +21,7 @@ public class RejectRequestAction implements Action {
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
-        DAOFactory factory = new DAOFactory(ConnectionPool.getInstance());
+        MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
         MySQLUserDAO userDAO = (MySQLUserDAO) factory.getUserDAO();
         int requestId = Integer.parseInt(req.getParameter(PARAM_NAME_REQUEST_ID));
         userDAO.deleteCooperationRequest(requestId);

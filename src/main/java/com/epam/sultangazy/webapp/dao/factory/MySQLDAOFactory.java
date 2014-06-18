@@ -1,5 +1,9 @@
-package com.epam.sultangazy.webapp.dao;
+package com.epam.sultangazy.webapp.dao.factory;
 
+import com.epam.sultangazy.webapp.dao.DishDAO;
+import com.epam.sultangazy.webapp.dao.OrderDAO;
+import com.epam.sultangazy.webapp.dao.RestaurantDAO;
+import com.epam.sultangazy.webapp.dao.UserDAO;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLDishDAO;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLOrderDAO;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
@@ -10,12 +14,12 @@ import org.apache.log4j.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class DAOFactory {
-    private static Logger LOG = Logger.getLogger(DAOFactory.class);
+public class MySQLDAOFactory extends DAOFactory {
+    private static Logger LOG = Logger.getLogger(MySQLDAOFactory.class);
     private static ConnectionPool pool = null;
 
-    public DAOFactory(ConnectionPool pool) {
-        DAOFactory.pool = pool;
+    public MySQLDAOFactory(ConnectionPool pool) {
+        MySQLDAOFactory.pool = pool;
     }
 
     public synchronized Connection createConnection() {

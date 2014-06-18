@@ -2,7 +2,7 @@ package com.epam.sultangazy.webapp.action.actions.restorator;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.DAOFactory;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLDishDAO;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
@@ -29,7 +29,7 @@ public class RemoveDishAction implements Action {
         String imagePath = imagePathPropertyReader.getProperties("dishesView");
         HttpSession session = req.getSession();
         Restaurant sessionRestaurant = (Restaurant) session.getAttribute(ATTR_NAME_RESTAURANT);
-        DAOFactory factory = new DAOFactory(ConnectionPool.getInstance());
+        MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
         MySQLDishDAO mySQLDishDAO = (MySQLDishDAO) factory.getDishDAO();
         Dish dish = mySQLDishDAO.selectDishByID(Integer.parseInt(req.getParameter(PARAM_NAME_DISH_ID)));
         String oldImage = dish.getImage().substring(7);

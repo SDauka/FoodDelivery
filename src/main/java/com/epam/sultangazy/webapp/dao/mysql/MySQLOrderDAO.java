@@ -1,7 +1,7 @@
 package com.epam.sultangazy.webapp.dao.mysql;
 
-import com.epam.sultangazy.webapp.dao.DAOFactory;
 import com.epam.sultangazy.webapp.dao.OrderDAO;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.entity.Dish;
 import com.epam.sultangazy.webapp.entity.Order;
 import com.epam.sultangazy.webapp.entity.User;
@@ -28,9 +28,9 @@ public class MySQLOrderDAO implements OrderDAO {
     private static final String UPDATE_ORDER_STATE = "UPDATE fooddelivery.order SET order.statusId=? WHERE order.idorder=?";
     private static final String SELECT_ORDER = "Select order.idorder, order.restaurantId , order.userId, " +
             "order.amount, order.address, order.phone, order.dateTime, status.name as 'statusName' FROM fooddelivery.order JOIN fooddelivery.status ON order.statusId = status.idstatus AND order.idorder=?";
-    private DAOFactory factory;
+    private MySQLDAOFactory factory;
 
-    public MySQLOrderDAO(DAOFactory factory) {
+    public MySQLOrderDAO(MySQLDAOFactory factory) {
         this.factory = factory;
     }
 

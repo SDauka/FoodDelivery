@@ -12,7 +12,7 @@ import java.net.URLDecoder;
 public class ShowImage extends HttpServlet {
     private PropertyReader propertyReader = new PropertyReader(PropertyReader.IMAGE_PATH);
     private static final int DEFAULT_BUFFER_SIZE = 10240;
-    private String imagePath; //propertyReader.getProperties("imagePath");
+    private String imagePath;
 
 
     public void init() throws ServletException {

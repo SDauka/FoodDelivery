@@ -3,7 +3,7 @@ package com.epam.sultangazy.webapp.action.actions;
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
 import com.epam.sultangazy.webapp.action.actions.user.CleanCartAction;
-import com.epam.sultangazy.webapp.dao.DAOFactory;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
@@ -21,7 +21,7 @@ public class ShowRestaurants implements Action {
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
-        DAOFactory factory = new DAOFactory(ConnectionPool.getInstance());
+        MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
         MySQLRestaurantDAO mySQLRestaurantDAO = (MySQLRestaurantDAO) factory.getRestaurantDAO();
         List<Restaurant> restaurants;
         restaurants = mySQLRestaurantDAO.findRestaurants();

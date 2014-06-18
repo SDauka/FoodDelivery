@@ -2,7 +2,7 @@ package com.epam.sultangazy.webapp.action.actions.user;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.DAOFactory;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLUserDAO;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.User;
@@ -97,7 +97,7 @@ public class UpdateProfileAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
         HttpSession session = req.getSession();
-        DAOFactory factory = new DAOFactory(ConnectionPool.getInstance());
+        MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
         MySQLUserDAO userDAO = (MySQLUserDAO) factory.getUserDAO();
         if (!checkUpdateForm(req)) {
             if (sessionUser.getRole().equals(User.Role.RESTORATOR)) {
@@ -136,7 +136,7 @@ public class UpdateProfileAction implements Action {
     private void updateUser(int id, String name, String address, String newPassword, String phone) {
         User user = new User(name, address, newPassword, phone);
         user.setId(id);
-        DAOFactory factory = new DAOFactory(ConnectionPool.getInstance());
+        MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
         MySQLUserDAO userDAO = (MySQLUserDAO) factory.getUserDAO();
         try {
             userDAO.updateUser(user);

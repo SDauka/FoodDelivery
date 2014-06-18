@@ -2,7 +2,7 @@ package com.epam.sultangazy.webapp.action.actions;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.DAOFactory;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLUserDAO;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.User;
@@ -59,7 +59,7 @@ public class RegistrationAction implements Action {
                 }
             } else {
                 if (role == 2) {
-                    DAOFactory factory = new DAOFactory(ConnectionPool.getInstance());
+                    MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
                     MySQLUserDAO userDAO = (MySQLUserDAO) factory.getUserDAO();
                     HttpSession session = req.getSession();
                     User user = userDAO.findUser(email);
@@ -93,7 +93,7 @@ public class RegistrationAction implements Action {
 
     private boolean register() throws DAOException {
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
-        DAOFactory factory = new DAOFactory(ConnectionPool.getInstance());
+        MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
         MySQLUserDAO userDAO = (MySQLUserDAO) factory.getUserDAO();
         User user;
         String encryptedPassword = passwordEncryptor.encryptPassword(password);

@@ -1,7 +1,7 @@
 package com.epam.sultangazy.webapp.dao.mysql;
 
-import com.epam.sultangazy.webapp.dao.DAOFactory;
 import com.epam.sultangazy.webapp.dao.RestaurantDAO;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.Restaurant;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
@@ -24,9 +24,9 @@ public class MySQLRestaurantDAO implements RestaurantDAO {
     private static final String SELECT_RESTAURANT_BY_ID = "SELECT * FROM fooddelivery.restaurant WHERE restaurant.idrestaurant = ?";
     private static final String DELETE_RESTAURANT_BY_ID = "update fooddelivery.restaurant set restaurant.deleted = 'true' where restaurant.idrestaurant = ?";
     private static final String DELETE_RESTORATOR_BY_ID = "update fooddelivery.user set user.email = 'none' , user.deleted = 'true' where user.idUser = ?";
-    private DAOFactory factory;
+    private MySQLDAOFactory factory;
 
-    public MySQLRestaurantDAO(DAOFactory factory) {
+    public MySQLRestaurantDAO(MySQLDAOFactory factory) {
         this.factory = factory;
     }
 

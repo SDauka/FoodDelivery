@@ -2,7 +2,7 @@ package com.epam.sultangazy.webapp.action.actions.user;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.DAOFactory;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLOrderDAO;
 import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
@@ -31,7 +31,7 @@ public class OrderListAction implements Action {
         LinkedList<Order> orders;
         HashMap<Integer, String> restaurants;
         User user = (User) req.getSession().getAttribute(ATTR_NAME_USER);
-        DAOFactory factory = new DAOFactory(ConnectionPool.getInstance());
+        MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
         MySQLOrderDAO mySQLOrderDAO = (MySQLOrderDAO) factory.getOrderDAO();
         MySQLRestaurantDAO mySQLRestaurantDAO = (MySQLRestaurantDAO) factory.getRestaurantDAO();
         switch (user.getRole()) {
