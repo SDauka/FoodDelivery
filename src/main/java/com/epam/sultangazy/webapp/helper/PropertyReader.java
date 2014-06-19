@@ -12,6 +12,7 @@ public class PropertyReader {
     public static final String PAGES_PROPERTIES = "pages.properties";
     public static final String DB_CONFIG = "database.properties";
     public static final String IMAGE_PATH = "imagePath.properties";
+    public static final String SUBSTRING = "substring.properties";
 
     public PropertyReader(String fileName) {
         InputStream inputStream = PropertyReader.class.getClassLoader().getResourceAsStream(fileName);

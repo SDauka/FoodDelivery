@@ -94,7 +94,7 @@
             <a class="btn btn btn-danger" href="changeOrderStatus?status=3&order=${requestScope.idOrder}"><fmt:message
                     key="o.reject"/></a>
         </div>
-        <a class="btn btn-link" href="restoratorPage?" style="margin-top: 10px"><fmt:message key="back"/></a>
+        <a class="btn btn-link" href="restoratorPage" style="margin-top: 10px"><fmt:message key="back"/></a>
 
     </div>
 </div>

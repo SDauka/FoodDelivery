@@ -2,11 +2,11 @@ package com.epam.sultangazy.webapp.action.actions;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
+import com.epam.sultangazy.webapp.dao.UserDAO;
+import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLUserDAO;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.User;
-import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.helper.PropertyReader;
 import com.epam.sultangazy.webapp.helper.ValidationUtils;
 import org.jasypt.util.password.BasicPasswordEncryptor;
@@ -60,7 +60,7 @@ public class RegistrationAction implements Action {
             } else {
                 if (role == 2) {
                     MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
-                    MySQLUserDAO userDAO = (MySQLUserDAO) factory.getUserDAO();
+                    UserDAO userDAO = factory.getUserDAO();
                     HttpSession session = req.getSession();
                     User user = userDAO.findUser(email);
                     session.setAttribute(ATTR_NAME_USER, user);
@@ -94,7 +94,7 @@ public class RegistrationAction implements Action {
     private boolean register() throws DAOException {
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
         MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
-        MySQLUserDAO userDAO = (MySQLUserDAO) factory.getUserDAO();
+        UserDAO userDAO = factory.getUserDAO();
         User user;
         String encryptedPassword = passwordEncryptor.encryptPassword(password);
         if (!userDAO.checkUser(email)) {

@@ -2,10 +2,10 @@ package com.epam.sultangazy.webapp.action.actions.admin;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
+import com.epam.sultangazy.webapp.dao.RestaurantDAO;
+import com.epam.sultangazy.webapp.dao.UserDAO;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLUserDAO;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.Restaurant;
 import com.epam.sultangazy.webapp.entity.User;
@@ -28,14 +28,16 @@ public class DeleteRestaurantAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
         PropertyReader imagePathPropertyReader = new PropertyReader(PropertyReader.IMAGE_PATH);
+        PropertyReader substring = new PropertyReader(PropertyReader.SUBSTRING);
+        int subs = Integer.parseInt(substring.getProperties("rest_image"));
         String imagePath = imagePathPropertyReader.getProperties("restaurantsLogo");
         MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
-        MySQLUserDAO userDAO = (MySQLUserDAO) factory.getUserDAO();
-        MySQLRestaurantDAO mySQLRestaurantDAO = (MySQLRestaurantDAO) factory.getRestaurantDAO();
+        UserDAO userDAO = factory.getUserDAO();
+        RestaurantDAO mySQLRestaurantDAO = factory.getRestaurantDAO();
         int restaurantId = Integer.parseInt(req.getParameter(PARAM_NAME_RESTAURANT_ID));
         int restoratorId = Integer.parseInt(req.getParameter(PARAM_NAME_RESTORATOR_ID));
         Restaurant restaurant = mySQLRestaurantDAO.selectRestaurantByID(restaurantId);
-        String oldImage = restaurant.getImage().substring(12);
+        String oldImage = restaurant.getImage().substring(subs);
         new File(imagePath + File.separator + oldImage).delete();
         mySQLRestaurantDAO.deleteRestaurantById(restaurantId, restoratorId);
         Map<Integer, User> users = userDAO.findRestorators();

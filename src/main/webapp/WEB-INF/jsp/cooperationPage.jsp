@@ -163,7 +163,7 @@
 
                     <div class="controls">
                         <input type="text" id="inputPhone" class="input-block-level"
-                               placeholder="<fmt:message key="phone.h"/>"
+                               placeholder="+7 (999) 999-9999"
                                name="phone" required value="${requestScope.phone}"
                                data-validation-required-message="<fmt:message key="error.empty.fields"/>">
 

@@ -2,6 +2,7 @@ package com.epam.sultangazy.webapp.action.actions;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
+import com.epam.sultangazy.webapp.helper.PropertyReader;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.Cookie;
@@ -17,6 +18,8 @@ public class ChangeLanguageAction implements Action {
 
     @Override
     public ActionResult execute(HttpServletRequest request, HttpServletResponse response) {
+        PropertyReader substring = new PropertyReader(PropertyReader.SUBSTRING);
+        int subs = Integer.parseInt(substring.getProperties("referer"));
         if (request.getParameter(LOCALE) != null) {
             LOG.debug("Locale: " + request.getParameter(LOCALE));
             HttpSession session = request.getSession();
@@ -24,7 +27,7 @@ public class ChangeLanguageAction implements Action {
             Cookie cookie = new Cookie(LOCALE, request.getParameter(LOCALE));
             response.addCookie(cookie);
         }
-        referrer = request.getHeader("referer").substring(38);
+        referrer = request.getHeader("referer").substring(subs);
         return new ActionResult(referrer, true);
     }
 }

@@ -141,24 +141,6 @@ public class MySQLUserDAO implements UserDAO {
     }
 
     @Override
-    public boolean checkUser(String login, String password) throws DAOException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        try {
-            Object[] values = {login, password};
-            connection = factory.createConnection();
-            preparedStatement = DaoUtils.prepareStatement(connection, CHECK_USER, false, values);
-            ResultSet rs = preparedStatement.executeQuery();
-            return rs.next();
-        } catch (SQLException e) {
-            throw new DAOException(e);
-        } finally {
-            DaoUtils.close(connection, preparedStatement, resultSet);
-        }
-    }
-
-    @Override
     public boolean checkUser(String login) throws DAOException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;

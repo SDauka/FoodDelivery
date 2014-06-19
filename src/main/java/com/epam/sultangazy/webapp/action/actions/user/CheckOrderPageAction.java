@@ -2,10 +2,10 @@ package com.epam.sultangazy.webapp.action.actions.user;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
+import com.epam.sultangazy.webapp.dao.DishDAO;
+import com.epam.sultangazy.webapp.dao.RestaurantDAO;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLDishDAO;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.Dish;
 import com.epam.sultangazy.webapp.entity.Restaurant;
@@ -31,8 +31,8 @@ public class CheckOrderPageAction implements Action {
     private final String MENU_PAGE = propertyReader.getProperties("menuPage.page");
     private final String ORDER_CHECK_PAGE = propertyReader.getProperties("orderCheck.page");
     private MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
-    private MySQLRestaurantDAO mySQLRestaurantDAO = (MySQLRestaurantDAO) factory.getRestaurantDAO();
-    private MySQLDishDAO mySQLDishDAO = (MySQLDishDAO) factory.getDishDAO();
+    private RestaurantDAO mySQLRestaurantDAO = factory.getRestaurantDAO();
+    private DishDAO mySQLDishDAO = factory.getDishDAO();
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
@@ -55,12 +55,13 @@ public class CheckOrderPageAction implements Action {
         int idRestaurant = Integer.parseInt(req.getParameter(PARAM_NAME_RESTAURANT_ID));
         String category = null;
         try {
-            category = new String(new String(req.getParameter(PARAM_NAME_CATEGORY).getBytes("iso-8859-1"), "UTF-8"));
+            category = new String(req.getParameter(PARAM_NAME_CATEGORY).getBytes("iso-8859-1"), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         Restaurant restaurant = mySQLRestaurantDAO.selectRestaurantByID(idRestaurant);
         HashSet<String> categories = mySQLDishDAO.selectRestaurantDishCategories(idRestaurant);
+        assert category != null;
         if (category.equals("all")) {
             dishes = mySQLDishDAO.findDishesByRestaurantID(idRestaurant);
         } else dishes = mySQLDishDAO.selectMenuByCategory(idRestaurant, category);

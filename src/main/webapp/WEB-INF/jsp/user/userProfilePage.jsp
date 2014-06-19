@@ -158,7 +158,7 @@
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li><a href="restaurants?"><fmt:message key="r.showRestaurant"/></a></li>
+                    <li><a href="restaurants"><fmt:message key="r.showRestaurant"/></a></li>
                 </ul>
                 <form class="navbar-form pull-right">
                     <a class="btn btn-link" href="locale?locale=ru"/>RU</a>
@@ -212,7 +212,7 @@
                                     <div class="control-group">
                                         <div class="controls">
                                             <input type="text" class="input-block-level"
-                                                   placeholder="<fmt:message key="phone.h"/>"
+                                                   placeholder="<fmt:message key="phone.h"/> +7 (999) 999-9999"
                                                    name="phoneE" id="phoneR">
                                         </div>
                                     </div>

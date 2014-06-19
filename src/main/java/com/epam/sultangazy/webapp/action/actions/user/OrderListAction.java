@@ -2,10 +2,10 @@ package com.epam.sultangazy.webapp.action.actions.user;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
+import com.epam.sultangazy.webapp.dao.OrderDAO;
+import com.epam.sultangazy.webapp.dao.RestaurantDAO;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLOrderDAO;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.Order;
 import com.epam.sultangazy.webapp.entity.User;
@@ -32,8 +32,8 @@ public class OrderListAction implements Action {
         HashMap<Integer, String> restaurants;
         User user = (User) req.getSession().getAttribute(ATTR_NAME_USER);
         MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
-        MySQLOrderDAO mySQLOrderDAO = (MySQLOrderDAO) factory.getOrderDAO();
-        MySQLRestaurantDAO mySQLRestaurantDAO = (MySQLRestaurantDAO) factory.getRestaurantDAO();
+        OrderDAO mySQLOrderDAO = factory.getOrderDAO();
+        RestaurantDAO mySQLRestaurantDAO = factory.getRestaurantDAO();
         switch (user.getRole()) {
             case USER:
                 orders = mySQLOrderDAO.findOrders(user);

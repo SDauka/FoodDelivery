@@ -2,9 +2,9 @@ package com.epam.sultangazy.webapp.action.actions.admin;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
+import com.epam.sultangazy.webapp.dao.UserDAO;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLUserDAO;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.User;
 import com.epam.sultangazy.webapp.helper.PropertyReader;
@@ -24,11 +24,11 @@ public class AcceptRequestAction implements Action {
     private PropertyReader propertyReader = new PropertyReader(PropertyReader.PAGES_PROPERTIES);
     private final String ADMIN_PROFILE = propertyReader.getProperties("adminProfile.page");
     private MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
-    private MySQLUserDAO userDAO;
+    private UserDAO userDAO;
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
-        userDAO = (MySQLUserDAO) factory.getUserDAO();
+        userDAO = factory.getUserDAO();
         int requestId = Integer.parseInt(req.getParameter(PARAM_NAME_REQUEST_ID));
         register(req);
         userDAO.deleteCooperationRequest(requestId);

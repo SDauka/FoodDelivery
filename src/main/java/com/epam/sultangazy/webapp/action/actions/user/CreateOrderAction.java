@@ -2,10 +2,10 @@ package com.epam.sultangazy.webapp.action.actions.user;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
+import com.epam.sultangazy.webapp.dao.OrderDAO;
+import com.epam.sultangazy.webapp.dao.RestaurantDAO;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLOrderDAO;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.Dish;
 import com.epam.sultangazy.webapp.entity.Order;
@@ -39,8 +39,8 @@ public class CreateOrderAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
         MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
-        MySQLOrderDAO mySQLOrderDAO = (MySQLOrderDAO) factory.getOrderDAO();
-        MySQLRestaurantDAO mySQLRestaurantDAO = (MySQLRestaurantDAO) factory.getRestaurantDAO();
+        OrderDAO mySQLOrderDAO = factory.getOrderDAO();
+        RestaurantDAO mySQLRestaurantDAO = factory.getRestaurantDAO();
         idRestaurant = Integer.parseInt(req.getParameter(PARAM_NAME_RESTAURANT_ID));
         Restaurant restaurant = mySQLRestaurantDAO.selectRestaurantByID(idRestaurant);
         setOrder(req);

@@ -2,11 +2,11 @@ package com.epam.sultangazy.webapp.action.actions.user;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
+import com.epam.sultangazy.webapp.dao.UserDAO;
+import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLUserDAO;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.User;
-import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.helper.PropertyReader;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 
@@ -98,7 +98,7 @@ public class UpdateProfileAction implements Action {
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
         HttpSession session = req.getSession();
         MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
-        MySQLUserDAO userDAO = (MySQLUserDAO) factory.getUserDAO();
+        UserDAO userDAO = factory.getUserDAO();
         if (!checkUpdateForm(req)) {
             if (sessionUser.getRole().equals(User.Role.RESTORATOR)) {
                 return new ActionResult(REST_PROFILE_PAGE, false);
@@ -137,7 +137,7 @@ public class UpdateProfileAction implements Action {
         User user = new User(name, address, newPassword, phone);
         user.setId(id);
         MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
-        MySQLUserDAO userDAO = (MySQLUserDAO) factory.getUserDAO();
+        UserDAO userDAO = factory.getUserDAO();
         try {
             userDAO.updateUser(user);
         } catch (DAOException e) {

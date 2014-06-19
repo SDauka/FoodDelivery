@@ -2,9 +2,9 @@ package com.epam.sultangazy.webapp.action.actions.restorator;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
+import com.epam.sultangazy.webapp.dao.RestaurantDAO;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.Restaurant;
 import com.epam.sultangazy.webapp.helper.ImageResizer;
@@ -44,7 +44,7 @@ public class ChangeRestaurantProfileAction implements Action {
     private final String RESTORATOR_PAGE = propertyReader.getProperties("restoratorPage.page");
     private final String RESTORATOR_PAGEr = propertyReader.getProperties("restoratorProfile");
     private MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
-    private MySQLRestaurantDAO restaurantDAO = (MySQLRestaurantDAO) factory.getRestaurantDAO();
+    private RestaurantDAO restaurantDAO = factory.getRestaurantDAO();
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
@@ -135,17 +135,19 @@ public class ChangeRestaurantProfileAction implements Action {
     }
 
     private boolean checkImageForm(FileItem item, HttpServletRequest req) throws Exception {
+        PropertyReader substring = new PropertyReader(PropertyReader.SUBSTRING);
         PropertyReader imagePathPropertyReader = new PropertyReader(PropertyReader.IMAGE_PATH);
+        int subs = Integer.parseInt(substring.getProperties("rest_image"));
         String imagePath = imagePathPropertyReader.getProperties("restaurantsLogo");
         Random rand = new Random();
         int randomNumber = rand.nextInt(50) + 1;
         HttpSession session = req.getSession();
         Restaurant sessionRestaurant = (Restaurant) session.getAttribute(ATTR_NAME_RESTAURANT);
         if (item.getName().isEmpty()) {
-            image = sessionRestaurant.getImage().substring(12);
+            image = sessionRestaurant.getImage().substring(subs);
             return true;
         }
-        String oldImage = sessionRestaurant.getImage().substring(12);
+        String oldImage = sessionRestaurant.getImage().substring(subs);
         new File(imagePath + File.separator + oldImage).delete();
         image = new String(item.getName().getBytes("iso-8859-1"), "UTF-8");
         image = name.replaceAll(" ", "") + "_" + randomNumber + "_" + image;

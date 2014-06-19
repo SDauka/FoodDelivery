@@ -2,9 +2,9 @@ package com.epam.sultangazy.webapp.action.actions.restorator;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
+import com.epam.sultangazy.webapp.dao.RestaurantDAO;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.Restaurant;
 import com.epam.sultangazy.webapp.entity.User;
@@ -46,7 +46,7 @@ public class AddRestaurantAction implements Action {
     private final String RESTORATOR_PAGE = propertyReader.getProperties("restoratorPage.page");
     private final String RESTORATOR_PAGEr = propertyReader.getProperties("restoratorProfile");
     private MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
-    private MySQLRestaurantDAO restaurantDAO = (MySQLRestaurantDAO) factory.getRestaurantDAO();
+    private RestaurantDAO restaurantDAO = factory.getRestaurantDAO();
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {

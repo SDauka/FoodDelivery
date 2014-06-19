@@ -67,12 +67,25 @@ public final class ValidationUtils {
         String address = request.getParameter("address");
         String phone = request.getParameter("phone");
         int role = Integer.parseInt(request.getParameter("roleR"));
+        Matcher phoneMatcher;
         if (address == null || address.isEmpty() || phone == null || phone.isEmpty()) {
             isAddressPhoneValid = false;
             if (role == 2) {
                 request.setAttribute("errorMessageR", "error.empty.fields");
             } else {
                 request.setAttribute("errorMessageR2", "error.empty.fields");
+            }
+        } else {
+            String phoneRegex = "^[+][1-9]{1}[ ]\\([1-9][0-9]{2}\\)[ ][1-9]{3}[-][0-9]{4}$";
+            Pattern phonePattern = Pattern.compile(phoneRegex, Pattern.UNICODE_CHARACTER_CLASS | Pattern.CASE_INSENSITIVE);
+            phoneMatcher = phonePattern.matcher(phone);
+            if (!phoneMatcher.matches()) {
+                isAddressPhoneValid = false;
+                if (role == 2) {
+                    request.setAttribute("errorMessageR", "error.invalid.phone");
+                } else {
+                    request.setAttribute("errorMessageR2", "error.invalid.phone");
+                }
             }
         }
         return isAddressPhoneValid;

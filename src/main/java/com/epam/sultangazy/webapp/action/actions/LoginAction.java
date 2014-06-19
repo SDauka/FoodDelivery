@@ -2,10 +2,10 @@ package com.epam.sultangazy.webapp.action.actions;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
+import com.epam.sultangazy.webapp.dao.RestaurantDAO;
+import com.epam.sultangazy.webapp.dao.UserDAO;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLRestaurantDAO;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLUserDAO;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.Restaurant;
 import com.epam.sultangazy.webapp.entity.User;
@@ -34,7 +34,7 @@ public class LoginAction implements Action {
         String login = request.getParameter(PARAM_NAME_EMAIL);
         String password = request.getParameter(PARAM_NAME_PASSWORD);
         MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
-        MySQLUserDAO userDAO = (MySQLUserDAO) factory.getUserDAO();
+        UserDAO userDAO = factory.getUserDAO();
         User user;
         user = userDAO.findUser(login);
         if (user == null || !passwordEncryptor.checkPassword(password, user.getPassword())) {
@@ -46,7 +46,7 @@ public class LoginAction implements Action {
             session.setAttribute(ATTR_NAME_USER, user);
             User sessionUser = (User) session.getAttribute(ATTR_NAME_USER);
             int restoratorID = sessionUser.getId();
-            MySQLRestaurantDAO restaurantDAO = (MySQLRestaurantDAO) factory.getRestaurantDAO();
+            RestaurantDAO restaurantDAO = factory.getRestaurantDAO();
             if (restaurantDAO.checkRestorator(restoratorID)) {
                 Restaurant restaurant;
                 restaurant = restaurantDAO.selectRestaurantByRestoratorID(restoratorID);

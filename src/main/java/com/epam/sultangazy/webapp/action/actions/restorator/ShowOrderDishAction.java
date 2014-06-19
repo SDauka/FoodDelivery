@@ -2,9 +2,9 @@ package com.epam.sultangazy.webapp.action.actions.restorator;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
+import com.epam.sultangazy.webapp.dao.OrderDAO;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLOrderDAO;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.Dish;
 import com.epam.sultangazy.webapp.entity.Order;
@@ -26,7 +26,7 @@ public class ShowOrderDishAction implements Action {
         Order order;
         int orderId = Integer.parseInt(req.getParameter(PARAM_NAME_ORDER_ID));
         MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
-        MySQLOrderDAO mySQLOrderDAO = (MySQLOrderDAO) factory.getOrderDAO();
+        OrderDAO mySQLOrderDAO = factory.getOrderDAO();
         order = mySQLOrderDAO.findOrder(orderId);
         orderDishes = evaluateOrderDishes(order);
         req.setAttribute(ATR_NAME_ORDER_DISHES, orderDishes);

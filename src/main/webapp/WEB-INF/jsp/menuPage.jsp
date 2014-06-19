@@ -184,7 +184,7 @@
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li><a href="restaurants?"><fmt:message key="r.showRestaurant"/></a></li>
+                    <li><a href="restaurants"><fmt:message key="r.showRestaurant"/></a></li>
                 </ul>
                 <section>
                     <div id="user-toolbar" class="nav settings-button"><img

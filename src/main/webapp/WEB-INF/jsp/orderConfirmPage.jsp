@@ -71,7 +71,7 @@
 <div class="form-signin">
     <div style="text-align:center">
         <h4><fmt:message key="o.confirm"/></h4>
-        <a href="restaurants?" class="btn btn-primary"><fmt:message key="backRestaurants"/></a>
+        <a href="restaurants" class="btn btn-primary"><fmt:message key="backRestaurants"/></a>
     </div>
 </div>
 <!-- /container -->

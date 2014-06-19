@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class MySQLDAOFactory extends DAOFactory {
+public class MySQLDAOFactory implements DAOFactory {
     private static Logger LOG = Logger.getLogger(MySQLDAOFactory.class);
     private static ConnectionPool pool = null;
 

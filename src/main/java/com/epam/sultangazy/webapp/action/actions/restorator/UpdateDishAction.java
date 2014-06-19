@@ -2,9 +2,9 @@ package com.epam.sultangazy.webapp.action.actions.restorator;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
+import com.epam.sultangazy.webapp.dao.DishDAO;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLDishDAO;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.Dish;
 import com.epam.sultangazy.webapp.entity.Restaurant;
@@ -49,7 +49,7 @@ public class UpdateDishAction implements Action {
     private final String RESTORATOR_PAGE = propertyReader.getProperties("restoratorPage.page");
     private final String EDIT_DISH_PAGE = propertyReader.getProperties("editDishPage.page");
     private MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
-    private MySQLDishDAO mySQLDishDAO = (MySQLDishDAO) factory.getDishDAO();
+    private DishDAO mySQLDishDAO = factory.getDishDAO();
     private Dish editDish;
 
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
@@ -129,14 +129,16 @@ public class UpdateDishAction implements Action {
 
     private boolean checkAddImageForm(FileItem item, HttpServletRequest req) throws Exception {
         PropertyReader imagePathPropertyReader = new PropertyReader(PropertyReader.IMAGE_PATH);
+        PropertyReader substring = new PropertyReader(PropertyReader.SUBSTRING);
+        int subs = Integer.parseInt(substring.getProperties("rest_dish"));
         String imagePath = imagePathPropertyReader.getProperties("dishesView");
         Random rand = new Random();
         int randomNumber = rand.nextInt(1000) + 1;
         if (item.getName().isEmpty()) {
-            image = editDish.getImage().substring(7);
+            image = editDish.getImage().substring(subs);
             return true;
         } else {
-            String oldImage = editDish.getImage().substring(7);
+            String oldImage = editDish.getImage().substring(subs);
             new File(imagePath + File.separator + oldImage).delete();
             image = new String(item.getName().getBytes("iso-8859-1"), "UTF-8");
             image = randomNumber + "_" + image;

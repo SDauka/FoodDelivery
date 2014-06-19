@@ -71,7 +71,7 @@
 <div class="form-signin">
     <div style="text-align:center">
         <h4><fmt:message key="request.received"/></h4>
-        <a href="welcomePage?" class="btn btn-primary"><fmt:message key="backRestaurants"/></a>
+        <a href="welcomePage" class="btn btn-primary"><fmt:message key="backRestaurants"/></a>
     </div>
 </div>
 <!-- /container -->

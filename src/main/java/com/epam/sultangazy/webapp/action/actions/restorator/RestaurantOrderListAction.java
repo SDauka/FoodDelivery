@@ -2,9 +2,9 @@ package com.epam.sultangazy.webapp.action.actions.restorator;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
+import com.epam.sultangazy.webapp.dao.OrderDAO;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLOrderDAO;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.Order;
 import com.epam.sultangazy.webapp.entity.Restaurant;
@@ -28,7 +28,7 @@ public class RestaurantOrderListAction implements Action {
         Restaurant restaurant = (Restaurant) req.getSession().getAttribute("restaurant");
         int status = Integer.parseInt(req.getParameter(PARAM_NAME_STATUS));
         MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
-        MySQLOrderDAO mySQLOrderDAO = (MySQLOrderDAO) factory.getOrderDAO();
+        OrderDAO mySQLOrderDAO = factory.getOrderDAO();
         switch (status) {
             case 1:
                 orders = mySQLOrderDAO.findOrders(status, restaurant.getId());

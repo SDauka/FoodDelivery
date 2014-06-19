@@ -2,9 +2,9 @@ package com.epam.sultangazy.webapp.action.actions.restorator;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
+import com.epam.sultangazy.webapp.dao.OrderDAO;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLOrderDAO;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.helper.PropertyReader;
 
@@ -22,7 +22,7 @@ public class ChangeOrderStatusAction implements Action {
         int orderId = Integer.parseInt(req.getParameter(ATTR_NAME_ORDER_ID));
         int statusId = Integer.parseInt(req.getParameter(PARAM_NAME_STATUS_ID));
         MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
-        MySQLOrderDAO mySQLOrderDAO = (MySQLOrderDAO) factory.getOrderDAO();
+        OrderDAO mySQLOrderDAO = factory.getOrderDAO();
         mySQLOrderDAO.updateState(orderId, statusId);
         return new ActionResult(RESTORATOR_PAGE, true);
     }

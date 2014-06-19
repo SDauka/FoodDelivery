@@ -8,7 +8,6 @@ import java.util.Map;
 
 
 public interface UserDAO {
-    public boolean checkUser(String login, String password) throws DAOException;
 
     public boolean checkUser(String login) throws DAOException;
 

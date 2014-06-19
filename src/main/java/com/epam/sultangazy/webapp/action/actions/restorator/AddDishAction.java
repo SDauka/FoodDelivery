@@ -2,9 +2,9 @@ package com.epam.sultangazy.webapp.action.actions.restorator;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
+import com.epam.sultangazy.webapp.dao.DishDAO;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
-import com.epam.sultangazy.webapp.dao.mysql.MySQLDishDAO;
+import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
 import com.epam.sultangazy.webapp.db_pool.ConnectionPool;
 import com.epam.sultangazy.webapp.entity.Dish;
 import com.epam.sultangazy.webapp.entity.Restaurant;
@@ -49,12 +49,12 @@ public class AddDishAction implements Action {
     private final String RESTORATOR_PAGE = propertyReader.getProperties("restoratorPage.page");
     private final String ADD_DISH_PAGE = propertyReader.getProperties("addDish.page");
     private MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
-    private MySQLDishDAO mySQLDishDAO = (MySQLDishDAO) factory.getDishDAO();
+    private DishDAO dishDAO = factory.getDishDAO();
 
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
-        List<String> categories = mySQLDishDAO.selectCategories();
+        List<String> categories = dishDAO.selectCategories();
         FileItemFactory ffactory = new DiskFileItemFactory();
         ServletFileUpload upload = new ServletFileUpload(ffactory);
         upload.setSizeMax(1024 * 1024 * 5);
@@ -78,7 +78,7 @@ public class AddDishAction implements Action {
                 return new ActionResult(ADD_DISH_PAGE, false);
             }
             List<Dish> dishs;
-            dishs = mySQLDishDAO.findDishesByRestaurantID(idRestaurant);
+            dishs = dishDAO.findDishesByRestaurantID(idRestaurant);
             req.setAttribute(ATTR_NAME_RESTAURANT_DISHES, dishs);
             return new ActionResult(RESTORATOR_PAGE, false);
 
@@ -173,7 +173,7 @@ public class AddDishAction implements Action {
         dish.setCost(cost);
         dish.setImage("dishes/" + image);
         try {
-            mySQLDishDAO.insertDish(dish, idRestaurant);
+            dishDAO.insertDish(dish, idRestaurant);
             LOG.debug("Dish added");
             return true;
         } catch (DAOException e) {
