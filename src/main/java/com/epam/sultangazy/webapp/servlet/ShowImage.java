@@ -1,6 +1,7 @@
 package com.epam.sultangazy.webapp.servlet;
 
 import com.epam.sultangazy.webapp.helper.PropertyReader;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,7 @@ import java.io.*;
 import java.net.URLDecoder;
 
 public class ShowImage extends HttpServlet {
+    private static Logger LOG = Logger.getLogger(ShowImage.class);
     private PropertyReader propertyReader = new PropertyReader(PropertyReader.IMAGE_PATH);
     private static final int DEFAULT_BUFFER_SIZE = 10240;
     private String imagePath;
@@ -89,8 +91,7 @@ public class ShowImage extends HttpServlet {
             try {
                 resource.close();
             } catch (IOException e) {
-                // Do your thing with the exception. Print it, log it or mail it.
-                e.printStackTrace();
+                LOG.debug("show image servlet IOException", e);
             }
         }
     }

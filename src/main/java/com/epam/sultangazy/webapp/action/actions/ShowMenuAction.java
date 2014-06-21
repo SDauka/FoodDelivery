@@ -2,6 +2,7 @@ package com.epam.sultangazy.webapp.action.actions;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
+import com.epam.sultangazy.webapp.action.actions.user.CleanCartAction;
 import com.epam.sultangazy.webapp.dao.DishDAO;
 import com.epam.sultangazy.webapp.dao.RestaurantDAO;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
@@ -38,6 +39,7 @@ public class ShowMenuAction implements Action {
         req.setAttribute(ATTR_NAME_RESTAURANT_MENU, dishes);
         req.setAttribute(ATTR_NAME_RESTAURANT_INFO, restaurant);
         req.setAttribute(ATTR_NAME_DISH_CATEGORY, "all");
+        CleanCartAction.cleanCart(req);
         return new ActionResult(MENU_PAGE, false);
     }
 }

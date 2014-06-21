@@ -2,7 +2,6 @@ package com.epam.sultangazy.webapp.action.actions;
 
 import com.epam.sultangazy.webapp.action.Action;
 import com.epam.sultangazy.webapp.action.ActionResult;
-import com.epam.sultangazy.webapp.action.actions.user.CleanCartAction;
 import com.epam.sultangazy.webapp.dao.RestaurantDAO;
 import com.epam.sultangazy.webapp.dao.exception.DAOException;
 import com.epam.sultangazy.webapp.dao.factory.MySQLDAOFactory;
@@ -26,7 +25,6 @@ public class ShowRestaurants implements Action {
         List<Restaurant> restaurants;
         restaurants = mySQLRestaurantDAO.findRestaurants();
         req.setAttribute(ATTR_NAME_RESTAURANTS, restaurants);
-        CleanCartAction.cleanCart(req);
         return new ActionResult(RESSTAURANTS_PAGE, false);
     }
 }

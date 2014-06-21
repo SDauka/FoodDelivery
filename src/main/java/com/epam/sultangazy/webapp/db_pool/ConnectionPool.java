@@ -69,7 +69,7 @@ public class ConnectionPool {
         return conn;
     }
 
-    private Connection newConnection() throws SQLException {
+    private synchronized Connection newConnection() throws SQLException {
         Connection con = null;
         try {
             if (user == null) {

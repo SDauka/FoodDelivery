@@ -1,8 +1,6 @@
 package com.epam.sultangazy.webapp.entity;
 
-import java.io.Serializable;
-
-public class Restaurant implements Serializable {
+public class Restaurant {
     private int id;
     private String name;
     private String image;

@@ -5,7 +5,6 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.sql.SQLException;
 
 public class DatabaseListener implements ServletContextListener {
     private static final Logger LOG = Logger.getLogger(DatabaseListener.class);
@@ -14,11 +13,11 @@ public class DatabaseListener implements ServletContextListener {
     }
 
     public void contextInitialized(ServletContextEvent sce) {
-        try {
-            ConnectionPool.getInstance().getConnection();
-        } catch (SQLException e) {
-            LOG.error("dao.exception in create database: " + e);
-        }
+//        try {
+//            ConnectionPool.getInstance().getConnection();
+//        } catch (SQLException e) {
+//            LOG.error("dao.exception in create database: " + e);
+//        }
     }
 
     public void contextDestroyed(ServletContextEvent sce) {

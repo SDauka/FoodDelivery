@@ -13,8 +13,9 @@ import com.epam.sultangazy.webapp.helper.PropertyReader;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.List;
 
 public class OrderListAction implements Action {
     private static final String ATTR_NAME_USER = "user";
@@ -28,7 +29,7 @@ public class OrderListAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
         ActionResult actionResult = null;
-        LinkedList<Order> orders;
+        List<Order> orders;
         HashMap<Integer, String> restaurants;
         User user = (User) req.getSession().getAttribute(ATTR_NAME_USER);
         MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
@@ -37,6 +38,7 @@ public class OrderListAction implements Action {
         switch (user.getRole()) {
             case USER:
                 orders = mySQLOrderDAO.findOrders(user);
+                Collections.reverse(orders);
                 restaurants = mySQLRestaurantDAO.selectRestaurantsName();
                 req.setAttribute(ATTR_NAME_USER_ORDERS, orders);
                 req.setAttribute(ATTR_NAME_USER_REST_NAME, restaurants);
@@ -44,6 +46,7 @@ public class OrderListAction implements Action {
                 break;
             case RESTORATOR:
                 orders = mySQLOrderDAO.findOrders(user);
+                Collections.reverse(orders);
                 restaurants = mySQLRestaurantDAO.selectRestaurantsName();
                 req.setAttribute(ATTR_NAME_USER_ORDERS, orders);
                 req.setAttribute(ATTR_NAME_USER_REST_NAME, restaurants);
@@ -51,6 +54,7 @@ public class OrderListAction implements Action {
                 break;
             case ADMIN:
                 orders = mySQLOrderDAO.findOrders(user);
+                Collections.reverse(orders);
                 restaurants = mySQLRestaurantDAO.selectRestaurantsName();
                 req.setAttribute(ATTR_NAME_USER_ORDERS, orders);
                 req.setAttribute(ATTR_NAME_USER_REST_NAME, restaurants);

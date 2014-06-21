@@ -82,11 +82,11 @@ public class MySQLOrderDAO implements OrderDAO {
     }
 
     @Override
-    public LinkedList<Order> findOrders(int state, int idRestaurant) throws DAOException {
+    public List<Order> findOrders(int state, int idRestaurant) throws DAOException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        LinkedList<Order> orders;
+        List<Order> orders;
         try {
             Object[] values = {state, idRestaurant};
             connection = factory.createConnection();
@@ -115,11 +115,11 @@ public class MySQLOrderDAO implements OrderDAO {
     }
 
     @Override
-    public LinkedList<Order> findOrders(User user) throws DAOException {
+    public List<Order> findOrders(User user) throws DAOException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        LinkedList<Order> orders;
+        List<Order> orders;
         try {
             Object[] values = {user.getId()};
             connection = factory.createConnection();

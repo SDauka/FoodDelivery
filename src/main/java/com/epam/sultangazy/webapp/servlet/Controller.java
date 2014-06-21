@@ -23,7 +23,7 @@ public class Controller extends HttpServlet {
         try {
             result = action.execute(req, resp);
         } catch (DAOException e) {
-            e.printStackTrace();
+            LOG.debug(e);
         } finally {
             returnResult(req, resp, result);
         }

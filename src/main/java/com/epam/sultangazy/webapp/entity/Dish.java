@@ -1,8 +1,6 @@
 package com.epam.sultangazy.webapp.entity;
 
-import java.io.Serializable;
-
-public class Dish implements Serializable {
+public class Dish {
     private int id;
     private String name;
     private String categories;

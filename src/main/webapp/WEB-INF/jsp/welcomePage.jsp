@@ -159,7 +159,7 @@
     <link href="http://localhost:8080/food-delivery/css/bootstrap-responsive.css" rel="stylesheet">
     <script src="http://localhost:8080/food-delivery/js/jquery.js"></script>
     <script src="http://localhost:8080/food-delivery/js/bootstrap.js"></script>
-    <script src="http://localhost:8080/food-delivery/js/jqBootstrapValidation.js"></script>
+    <%--<script src="http://localhost:8080/food-delivery/js/jqBootstrapValidation.js"></script>--%>
     <script src="http://localhost:8080/food-delivery/js/jquery.maskedinput.js"></script>
 </head>
 

@@ -12,7 +12,8 @@ import com.epam.sultangazy.webapp.helper.PropertyReader;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.LinkedList;
+import java.util.Collections;
+import java.util.List;
 
 public class RestaurantOrderListAction implements Action {
     private static final String PARAM_NAME_STATUS = "status";
@@ -24,7 +25,7 @@ public class RestaurantOrderListAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
         ActionResult actionResult = null;
-        LinkedList<Order> orders;
+        List<Order> orders;
         Restaurant restaurant = (Restaurant) req.getSession().getAttribute("restaurant");
         int status = Integer.parseInt(req.getParameter(PARAM_NAME_STATUS));
         MySQLDAOFactory factory = new MySQLDAOFactory(ConnectionPool.getInstance());
@@ -32,16 +33,19 @@ public class RestaurantOrderListAction implements Action {
         switch (status) {
             case 1:
                 orders = mySQLOrderDAO.findOrders(status, restaurant.getId());
+                Collections.reverse(orders);
                 req.setAttribute(ATTR_NAME_NEW_RESTAURANT_ORDERS, orders);
                 actionResult = new ActionResult(RESTAURANT_PAGE, false);
                 break;
             case 2:
                 orders = mySQLOrderDAO.findOrders(status, restaurant.getId());
+                Collections.reverse(orders);
                 req.setAttribute(ATTR_NAME_RESTAURANT_ORDERS, orders);
                 actionResult = new ActionResult(RESTAURANT_PAGE, false);
                 break;
             case 3:
                 orders = mySQLOrderDAO.findOrders(status, restaurant.getId());
+                Collections.reverse(orders);
                 req.setAttribute(ATTR_NAME_RESTAURANT_ORDERS, orders);
                 actionResult = new ActionResult(RESTAURANT_PAGE, false);
         }

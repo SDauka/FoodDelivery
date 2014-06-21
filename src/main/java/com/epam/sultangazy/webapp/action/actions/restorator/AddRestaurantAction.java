@@ -57,7 +57,7 @@ public class AddRestaurantAction implements Action {
         try {
             List items = upload.parseRequest(req);
             Iterator iter = items.iterator();
-            resp.setContentType("text/html");
+
             while (iter.hasNext()) {
                 FileItem item = (FileItem) iter.next();
                 if (item.isFormField()) {

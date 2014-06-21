@@ -7,19 +7,19 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface RestaurantDAO {
-    public List<Restaurant> findRestaurants() throws DAOException;
+    List<Restaurant> findRestaurants() throws DAOException;
 
-    public void deleteRestaurantById(int id, int idrestorator) throws DAOException;
+    void deleteRestaurantById(int id, int idrestorator) throws DAOException;
 
-    public Restaurant selectRestaurantByID(int id) throws DAOException;
+    Restaurant selectRestaurantByID(int id) throws DAOException;
 
-    public boolean updateRestaurant(Restaurant restaurant) throws DAOException;
+    boolean updateRestaurant(Restaurant restaurant) throws DAOException;
 
-    public Restaurant selectRestaurantByRestoratorID(int id) throws DAOException;
+    Restaurant selectRestaurantByRestoratorID(int id) throws DAOException;
 
-    public boolean checkRestorator(int id) throws DAOException;
+    boolean checkRestorator(int id) throws DAOException;
 
-    public void insertRestaurant(Restaurant restaurant, int restorator) throws DAOException;
+    void insertRestaurant(Restaurant restaurant, int restorator) throws DAOException;
 
-    public HashMap<Integer, String> selectRestaurantsName() throws DAOException;
+    HashMap<Integer, String> selectRestaurantsName() throws DAOException;
 }

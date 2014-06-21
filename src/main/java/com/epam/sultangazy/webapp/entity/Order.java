@@ -1,10 +1,9 @@
 package com.epam.sultangazy.webapp.entity;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Order implements Serializable {
+public class Order {
     private int id;
     private int restaurant;
     private int user;

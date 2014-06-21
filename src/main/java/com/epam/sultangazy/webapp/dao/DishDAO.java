@@ -7,19 +7,19 @@ import java.util.HashSet;
 import java.util.List;
 
 public interface DishDAO {
-    public List<Dish> findDishesByRestaurantID(int id) throws DAOException;
+    List<Dish> findDishesByRestaurantID(int id) throws DAOException;
 
-    public Dish selectDishByID(int id) throws DAOException;
+    Dish selectDishByID(int id) throws DAOException;
 
-    public List<String> selectCategories() throws DAOException;
+    List<String> selectCategories() throws DAOException;
 
-    public boolean updateDish(Dish dish) throws DAOException;
+    boolean updateDish(Dish dish) throws DAOException;
 
-    public void insertDish(Dish dish, int idRestaurant) throws DAOException;
+    void insertDish(Dish dish, int idRestaurant) throws DAOException;
 
-    public void deleteDish(int id) throws DAOException;
+    void deleteDish(int id) throws DAOException;
 
-    public HashSet<String> selectRestaurantDishCategories(int idRestaurant) throws DAOException;
+    HashSet<String> selectRestaurantDishCategories(int idRestaurant) throws DAOException;
 
-    public List<Dish> selectMenuByCategory(int idRestaurant, String categories) throws DAOException;
+    List<Dish> selectMenuByCategory(int idRestaurant, String categories) throws DAOException;
 }

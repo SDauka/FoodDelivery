@@ -37,8 +37,8 @@ public class AddToOrderAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
         HttpSession session = req.getSession();
-        HashMap<String, Integer> dcount = new HashMap<>();
-        HashMap<String, Integer> dcost = new HashMap<>();
+        LinkedHashMap<String, Integer> dcount = new LinkedHashMap<>();
+        LinkedHashMap<String, Integer> dcost = new LinkedHashMap<>();
         Dish dish;
         dish = mySQLDishDAO.selectDishByID(Integer.parseInt(req.getParameter(PARAM_NAME_DISH_ID)));
         String name = dish.getName();

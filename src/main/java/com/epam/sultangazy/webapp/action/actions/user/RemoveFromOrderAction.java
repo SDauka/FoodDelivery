@@ -14,8 +14,8 @@ import com.epam.sultangazy.webapp.helper.PropertyReader;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class RemoveFromOrderAction implements Action {
@@ -40,8 +40,8 @@ public class RemoveFromOrderAction implements Action {
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) throws DAOException {
         HttpSession session = req.getSession();
         String name = req.getParameter(PARAM_NAME_DISH_NAME);
-        HashMap<String, Integer> dcount = (HashMap<String, Integer>) session.getAttribute(ATTR_NAME_DISH_COUNT);
-        HashMap<String, Integer> dcost = (HashMap<String, Integer>) session.getAttribute(ATTR_NAME_DISH_COST);
+        LinkedHashMap<String, Integer> dcount = (LinkedHashMap<String, Integer>) session.getAttribute(ATTR_NAME_DISH_COUNT);
+        LinkedHashMap<String, Integer> dcost = (LinkedHashMap<String, Integer>) session.getAttribute(ATTR_NAME_DISH_COST);
         List<Dish> preparedDishes = (List<Dish>) session.getAttribute(ATTR_NAME_PREPARED_DISHES);
         int count = dcount.get(name);
         int cost = dcost.get(name) / count;
